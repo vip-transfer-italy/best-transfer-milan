@@ -11,16 +11,11 @@ const CONFIG = {
   email:     "info@besttransfermilan.com",   // [ВСТАВИТИ: email, якщо потрібен окремий від VIP Transfer]
 };
 
-/* ===== currency ===== */
-const RATES = { EUR: { rate: 1, symbol: "€", suffix: true }, USD: { rate: 1.08, symbol: "$", suffix: false }, UAH: { rate: 46.5, symbol: "₴", suffix: true } };
-let currentCurrency = localStorage.getItem("btm_curr") || "EUR";
-let currentLang = localStorage.getItem("btm_lang") || "uk";
-
+/* ===== currency (EUR only) ===== */
 function fmtPrice(eur){
-  const r = RATES[currentCurrency];
-  const val = Math.round(eur * r.rate);
-  return r.suffix ? `${val} ${r.symbol}` : `${r.symbol}${val}`;
+  return `${Math.round(eur)} €`;
 }
+let currentLang = localStorage.getItem("btm_lang") || "uk";
 
 /* =========================================================================
    TRANSLATIONS
@@ -33,7 +28,7 @@ const I18N = {
     nav_company: "Компанія ▾", nav_about: "Про нас", nav_terms: "Умови та правила",
     hero_eyebrow: "Преміальний трансфер-сервіс · Мілан",
     hero_title: "Приватний трансфер<br>у Мілані",
-    hero_subtitle: "Комфортні поїздки з аеропортів Мальпенса, Лінате й Бергамо, а також у будь-яке місто Італії та Європи. Преміальні авто, персональний водій, фіксована ціна.",
+    hero_subtitle: "Комфортні поїздки з аеропортів Мальпенса, Лінате й Бергамо, а також у будь-яке місто Італії та Європи. Преміальні авто, персональний водій.",
     f_from: "Звідки", f_from_ph: "Аеропорт, місто, готель...",
     f_to: "Куди", f_to_ph: "Аеропорт, місто, готель...",
     f_date: "Дата", f_pax: "Пасажири", f_bags: "Багаж", f_submit: "Дізнатися ціни", search_title: "Пошук маршруту",
@@ -72,6 +67,9 @@ const I18N = {
     about_eyebrow: "Про нас", about_title: "Подорож без стресу — наш головний принцип",
     about_text: "Best Transfer Milan — команда водіїв і диспетчерів, що базується в Мілані та щодня возить гостей Італії комфортно, пунктуально та без несподіванок у ціні. Ми стежимо за рейсами, тримаємо авто в ідеальному стані та завжди на зв'язку — до, під час і після поїздки.",
     about_cta: "Дізнатися більше про компанію",
+    stats_eyebrow: "Чому ми", stats_title: "Цифри говорять самі за себе",
+    stats1: "Років досвіду", stats2: "Виконаних трансферів", stats3: "Задоволених клієнтів", stats4: "Підтримка у WhatsApp",
+    clock_label: "Мілан",
     reviews_eyebrow: "Відгуки", reviews_title: "Що кажуть наші клієнти",
     reviews_placeholder_note: "[ВСТАВИТИ: реальні відгуки клієнтів — наведені приклади підлягають заміні]",
     faq_eyebrow: "FAQ", faq_title: "Корисно знати",
@@ -92,7 +90,7 @@ const I18N = {
     nav_company: "Company ▾", nav_about: "About us", nav_terms: "Terms & Conditions",
     hero_eyebrow: "Premium Transfer Service · Milan",
     hero_title: "Private Transfer<br>in Milan",
-    hero_subtitle: "Comfortable rides from Malpensa, Linate and Bergamo airports, and to any city in Italy or Europe. Premium cars, personal driver, fixed price.",
+    hero_subtitle: "Comfortable rides from Malpensa, Linate and Bergamo airports, and to any city in Italy or Europe. Premium cars, personal driver.",
     f_from: "From", f_from_ph: "Airport, city, hotel...",
     f_to: "To", f_to_ph: "Airport, city, hotel...",
     f_date: "Date", f_pax: "Passengers", f_bags: "Luggage", f_submit: "Get prices", search_title: "Route search",
@@ -131,6 +129,9 @@ const I18N = {
     about_eyebrow: "About us", about_title: "A stress-free journey is our main principle",
     about_text: "Best Transfer Milan is a team of drivers and dispatchers based in Milan, driving guests across Italy every day — comfortably, punctually and with no surprises in price. We track flights, keep our cars immaculate and stay reachable before, during and after every ride.",
     about_cta: "Learn more about the company",
+    stats_eyebrow: "Why us", stats_title: "Numbers speak louder than words",
+    stats1: "Years of experience", stats2: "Transfers completed", stats3: "Happy clients", stats4: "Support on WhatsApp",
+    clock_label: "Milan",
     reviews_eyebrow: "Reviews", reviews_title: "What our clients say",
     reviews_placeholder_note: "[INSERT: real client reviews — the examples above are placeholders to be replaced]",
     faq_eyebrow: "FAQ", faq_title: "Good to know",
@@ -151,7 +152,7 @@ const I18N = {
     nav_company: "Azienda ▾", nav_about: "Chi siamo", nav_terms: "Termini e condizioni",
     hero_eyebrow: "Servizio Transfer Premium · Milano",
     hero_title: "Transfer Privato<br>a Milano",
-    hero_subtitle: "Viaggi confortevoli dagli aeroporti di Malpensa, Linate e Bergamo, e verso qualsiasi città in Italia o in Europa. Auto premium, driver personale, prezzo fisso.",
+    hero_subtitle: "Viaggi confortevoli dagli aeroporti di Malpensa, Linate e Bergamo, e verso qualsiasi città in Italia o in Europa. Auto premium, driver personale.",
     f_from: "Da", f_from_ph: "Aeroporto, città, hotel...",
     f_to: "A", f_to_ph: "Aeroporto, città, hotel...",
     f_date: "Data", f_pax: "Passeggeri", f_bags: "Bagagli", f_submit: "Scopri i prezzi", search_title: "Cerca percorso",
@@ -190,6 +191,9 @@ const I18N = {
     about_eyebrow: "Chi siamo", about_title: "Un viaggio senza stress è il nostro principio guida",
     about_text: "Best Transfer Milan è un team di driver e operatori con base a Milano, che ogni giorno accompagna gli ospiti in tutta Italia in modo confortevole, puntuale e senza sorprese sul prezzo. Monitoriamo i voli, manteniamo le auto impeccabili e siamo sempre raggiungibili prima, durante e dopo il viaggio.",
     about_cta: "Scopri di più sull'azienda",
+    stats_eyebrow: "Perché noi", stats_title: "I numeri parlano più delle parole",
+    stats1: "Anni di esperienza", stats2: "Transfer completati", stats3: "Clienti soddisfatti", stats4: "Assistenza su WhatsApp",
+    clock_label: "Milano",
     reviews_eyebrow: "Recensioni", reviews_title: "Cosa dicono i nostri clienti",
     reviews_placeholder_note: "[INSERIRE: recensioni reali dei clienti — gli esempi sopra sono segnaposto da sostituire]",
     faq_eyebrow: "FAQ", faq_title: "Utile da sapere",
@@ -210,7 +214,7 @@ const I18N = {
     nav_company: "Компания ▾", nav_about: "О нас", nav_terms: "Условия и правила",
     hero_eyebrow: "Премиальный трансфер-сервис · Милан",
     hero_title: "Приватный трансфер<br>в Милане",
-    hero_subtitle: "Комфортные поездки из аэропортов Мальпенса, Линате и Бергамо, а также в любой город Италии и Европы. Премиальные авто, персональный водитель, фиксированная цена.",
+    hero_subtitle: "Комфортные поездки из аэропортов Мальпенса, Линате и Бергамо, а также в любой город Италии и Европы. Премиальные авто, персональный водитель.",
     f_from: "Откуда", f_from_ph: "Аэропорт, город, отель...",
     f_to: "Куда", f_to_ph: "Аэропорт, город, отель...",
     f_date: "Дата", f_pax: "Пассажиры", f_bags: "Багаж", f_submit: "Узнать цены", search_title: "Поиск маршрута",
@@ -249,6 +253,9 @@ const I18N = {
     about_eyebrow: "О нас", about_title: "Путешествие без стресса — наш главный принцип",
     about_text: "Best Transfer Milan — команда водителей и диспетчеров, базирующаяся в Милане и ежедневно возящая гостей Италии комфортно, пунктуально и без сюрпризов в цене. Мы следим за рейсами, держим авто в идеальном состоянии и всегда на связи — до, во время и после поездки.",
     about_cta: "Узнать больше о компании",
+    stats_eyebrow: "Почему мы", stats_title: "Цифры говорят сами за себя",
+    stats1: "Лет опыта", stats2: "Выполненных трансферов", stats3: "Довольных клиентов", stats4: "Поддержка в WhatsApp",
+    clock_label: "Милан",
     reviews_eyebrow: "Отзывы", reviews_title: "Что говорят наши клиенты",
     reviews_placeholder_note: "[ВСТАВИТЬ: реальные отзывы клиентов — приведённые примеры подлежат замене]",
     faq_eyebrow: "FAQ", faq_title: "Полезно знать",
@@ -315,7 +322,7 @@ const POPULAR = [
   { name:"Bergamo Orio al Serio (BGY)", price:87, img:"images/destinations/bergamo.jpg" },
   { name:"Milano Linate (LIN)", price:40, img:"images/destinations/linate.jpg" },
   { name:"Lago di Como", price:63, img:"images/destinations/como.jpg" },
-  { name:"Bellagio", price:128, img:"images/destinations/bellagio.jpg" },
+  { name:"Stresa (Lago Maggiore)", price:140, img:"images/destinations/stresa.jpg" },
   { name:"Lugano", price:122, img:"images/destinations/lugano.jpg" },
   { name:"Desenzano del Garda", price:187, img:"images/destinations/desenzano.jpg" },
   { name:"Torino", price:209, img:"images/destinations/torino.jpg" },
@@ -323,14 +330,15 @@ const POPULAR = [
   { name:"Portofino", price:258, img:"images/destinations/portofino.jpg" },
   { name:"Santa Margherita Ligure", price:251, img:"images/destinations/santa-margherita.jpg" },
   { name:"Rapallo", price:242, img:"images/destinations/rapallo.jpg" },
-  { name:"Bologna", price:313 },
-  { name:"Forte dei Marmi", price:355 },
-  { name:"Venezia", price:393 },
-  { name:"Pisa", price:409 },
-  { name:"Livorno", price:425 },
-  { name:"Firenze", price:453 },
-  { name:"Serravalle Designer Outlet", price:147 },
-  { name:"FoxTown Outlet (Svizzera)", price:93 }
+  { name:"Bologna", price:313, img:"images/destinations/bologna.jpg" },
+  { name:"Forte dei Marmi", price:355, img:"images/destinations/forte-dei-marmi.jpg" },
+  { name:"Venezia", price:393, img:"images/destinations/venezia.jpg" },
+  { name:"Pisa", price:409, img:"images/destinations/pisa.jpg" },
+  { name:"Livorno", price:425, img:"images/destinations/livorno.jpg" },
+  { name:"Firenze", price:453, img:"images/destinations/firenze.jpg" },
+  { name:"Roma", price:950, img:"images/destinations/roma.jpg" },
+  { name:"Serravalle Designer Outlet", price:147, img:"images/destinations/serravalle.jpg" },
+  { name:"FoxTown Outlet (Svizzera)", price:93, img:"images/destinations/foxtown.jpg" }
 ];
 
 /* =========================================================================
@@ -539,7 +547,7 @@ function applyStaticI18n(){
 
 function renderDestinations(){
   const grid = document.getElementById("destGrid");
-  grid.innerHTML = POPULAR.slice(0,12).map(d=>`
+  grid.innerHTML = POPULAR.map(d=>`
     <div class="dest-card reveal" data-name="${d.name}" ${d.img ? `style="background-image:url('${d.img}')"` : ""}>
       <div class="dest-card__name">${d.name}</div>
       <div class="dest-card__price">${t("price_from")} ${fmtPrice(d.price)}</div>
@@ -765,6 +773,39 @@ function observeReveals(){
   els.forEach(el=>io.observe(el));
 }
 
+function updateMilanClock(){
+  const el = document.getElementById("headerClockTime");
+  if(!el) return;
+  try{
+    const fmt = new Intl.DateTimeFormat("en-GB", {timeZone:"Europe/Rome", hour:"2-digit", minute:"2-digit", hour12:false});
+    el.textContent = fmt.format(new Date());
+  }catch(e){}
+}
+
+function setupStatsCountUp(){
+  const nums = document.querySelectorAll(".stat__num:not([data-counted])");
+  if(!nums.length) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const el = entry.target;
+      el.setAttribute("data-counted","1");
+      io.unobserve(el);
+      const target = parseInt(el.getAttribute("data-count"),10);
+      const suffix = el.getAttribute("data-suffix") || "";
+      const duration = 1200, start = performance.now();
+      function tick(now){
+        const p = Math.min((now-start)/duration, 1);
+        const eased = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(eased*target) + suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, {threshold:.4});
+  nums.forEach(el=>io.observe(el));
+}
+
 function applyConfigToDom(){
   document.querySelectorAll("#headerPhone, #footerPhone").forEach(el=>{ el.textContent = CONFIG.phone; el.setAttribute("href", `tel:${CONFIG.phoneHref}`); });
   document.getElementById("footerEmail").textContent = CONFIG.email;
@@ -783,15 +824,6 @@ function setLang(lang){
   document.getElementById("results").hidden || runSearch();
   startReviewAutoplay();
 }
-function setCurrency(curr){
-  currentCurrency = curr;
-  localStorage.setItem("btm_curr", curr);
-  document.getElementById("currToggle").innerHTML = `${RATES[curr].symbol} ${curr} <i>▾</i>`;
-  document.querySelectorAll("#currMenu button").forEach(b=>b.classList.toggle("is-active", b.getAttribute("data-curr")===curr));
-  renderDestinations(); renderCatalog();
-  if(!document.getElementById("results").hidden) runSearch();
-}
-
 document.addEventListener("DOMContentLoaded", ()=>{
   document.getElementById("year").textContent = new Date().getFullYear();
   applyConfigToDom();
@@ -807,19 +839,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
   burger.addEventListener("click", ()=>{ burger.classList.toggle("is-open"); mobileNav.classList.toggle("is-open"); });
   mobileNav.querySelectorAll("a").forEach(a=>a.addEventListener("click", ()=>{ burger.classList.remove("is-open"); mobileNav.classList.remove("is-open"); }));
 
-  /* lang & currency switches */
-  ["langSwitch","currSwitch"].forEach(id=>{
-    const el = document.getElementById(id);
+  /* lang switch */
+  (function(){
+    const el = document.getElementById("langSwitch");
     el.querySelector(".switch__toggle").addEventListener("click", (e)=>{
       e.stopPropagation();
       const isOpen = el.classList.contains("is-open");
       document.querySelectorAll(".switch").forEach(s=>s.classList.remove("is-open"));
       el.classList.toggle("is-open", !isOpen);
     });
-  });
+  })();
   document.addEventListener("click", ()=> document.querySelectorAll(".switch").forEach(s=>s.classList.remove("is-open")));
   document.querySelectorAll("#langMenu button").forEach(b=>b.addEventListener("click", ()=>{ setLang(b.getAttribute("data-lang")); document.getElementById("langSwitch").classList.remove("is-open"); }));
-  document.querySelectorAll("#currMenu button").forEach(b=>b.addEventListener("click", ()=>{ setCurrency(b.getAttribute("data-curr")); document.getElementById("currSwitch").classList.remove("is-open"); }));
 
   /* counters */
   document.querySelectorAll(".counter").forEach(counter=>{
@@ -927,11 +958,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
   /* initial render */
   document.getElementById("langToggle").innerHTML = `${currentLang.toUpperCase()} <i>▾</i>`;
   document.querySelectorAll("#langMenu button").forEach(b=>b.classList.toggle("is-active", b.getAttribute("data-lang")===currentLang));
-  document.getElementById("currToggle").innerHTML = `${RATES[currentCurrency].symbol} ${currentCurrency} <i>▾</i>`;
-  document.querySelectorAll("#currMenu button").forEach(b=>b.classList.toggle("is-active", b.getAttribute("data-curr")===currentCurrency));
 
   applyStaticI18n();
   renderDestinations(); renderCatalog(); renderFleet(); renderFaq(); renderReviews(); renderTerms();
   startReviewAutoplay();
   observeReveals();
+  setupStatsCountUp();
+  updateMilanClock();
+  setInterval(updateMilanClock, 30000);
 });
