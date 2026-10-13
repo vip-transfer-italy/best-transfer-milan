@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a1f44'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%232563eb' font-family='Arial,sans-serif' font-weight='700'%3EB%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
@@ -171,6 +171,40 @@
       <div class="badge"><span class="badge__icon">🛡️</span><span data-i18n="badge3">Безпечно та надійно</span></div>
     </div>
   </div>
+
+  <!-- ===== INSTANT PRICE CALCULATOR ===== -->
+  <section class="section calculator" id="calculator">
+    <div class="container">
+      <p class="section__eyebrow reveal" data-i18n="calc_eyebrow">Ціна</p>
+      <h2 class="section__title reveal" data-i18n="calc_title">Розрахуйте ціну миттєво</h2>
+      <p class="calculator__note reveal" data-i18n="calc_note">Вкажіть будь-яку адресу — ми одразу покажемо орієнтовну ціну за реальною відстанню.</p>
+
+      <div class="calculator__box reveal">
+        <div class="calculator__fields">
+          <div class="field autocomplete">
+            <label for="calcPickup" data-i18n="f_pickup">Звідки</label>
+            <input type="text" id="calcPickup" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="f_addr_ph" placeholder="Адреса, аеропорт, готель...">
+            <ul class="autocomplete__list" id="calcPickupList" role="listbox"></ul>
+          </div>
+          <div class="field autocomplete">
+            <label for="calcDestination" data-i18n="f_dest">Куди</label>
+            <input type="text" id="calcDestination" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="f_addr_ph" placeholder="Адреса, аеропорт, готель...">
+            <ul class="autocomplete__list" id="calcDestinationList" role="listbox"></ul>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn--gold calculator__btn" id="calcBtn" data-i18n="calc_btn">Розрахувати ціну</button>
+
+        <p class="calculator__error" id="calcError" hidden data-i18n="calc_error">Оберіть обидві адреси зі списку підказок.</p>
+
+        <div class="calculator__result" id="calcResult" hidden>
+          <p class="calculator__price" id="calcPrice"></p>
+          <p class="calculator__disclaimer" data-i18n="calc_disclaimer">Орієнтовна ціна. Точну вартість підтверджує менеджер перед поїздкою.</p>
+          <button type="button" class="btn btn--outline calculator__book" id="calcBookBtn" data-i18n="calc_book">Забронювати цей маршрут</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== SEARCH RESULTS ===== -->
   <section class="section results" id="results" hidden>
@@ -440,6 +474,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=8"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>
