@@ -70,13 +70,7 @@ const I18N = {
     stats_eyebrow: "Чому ми", stats_title: "Цифри говорять самі за себе",
     stats1: "Років досвіду", stats2: "Виконаних трансферів", stats3: "Задоволених клієнтів", stats4: "Підтримка у WhatsApp",
     clock_label: "Мілан",
-    calc_eyebrow: "Ціна", calc_title: "Розрахуйте ціну миттєво",
-    calc_note: "Вкажіть будь-яку адресу — ми одразу покажемо орієнтовну ціну за реальною відстанню.",
-    f_pickup: "Звідки", f_dest: "Куди", f_addr_ph: "Адреса, аеропорт, готель...",
-    calc_btn: "Розрахувати ціну", calc_error: "Оберіть обидві адреси зі списку підказок.",
     calc_distance: "Відстань",
-    calc_disclaimer: "Орієнтовні ціни. Точну вартість підтверджує менеджер перед поїздкою.",
-    calc_fail: "Не вдалося розрахувати відстань. Спробуйте ще раз або скористайтеся формою вище.",
     reviews_eyebrow: "Відгуки", reviews_title: "Що кажуть наші клієнти",
     faq_eyebrow: "FAQ", faq_title: "Корисно знати",
     modal_title: "Забронювати трансфер", m_name: "Ваше ім'я", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
@@ -138,13 +132,7 @@ const I18N = {
     stats_eyebrow: "Why us", stats_title: "Numbers speak louder than words",
     stats1: "Years of experience", stats2: "Transfers completed", stats3: "Happy clients", stats4: "Support on WhatsApp",
     clock_label: "Milan",
-    calc_eyebrow: "Price", calc_title: "Calculate your price instantly",
-    calc_note: "Enter your route — we'll show an estimated price right away.",
-    f_pickup: "Pickup location", f_dest: "Destination", f_addr_ph: "Address, airport, hotel...",
-    calc_btn: "Calculate price", calc_error: "Please pick both addresses from the suggestion list.",
     calc_distance: "Distance",
-    calc_disclaimer: "Estimated prices. The exact price is confirmed by the manager before the ride.",
-    calc_fail: "Could not calculate the distance. Please try again or use the form above.",
     reviews_eyebrow: "Reviews", reviews_title: "What our clients say",
     faq_eyebrow: "FAQ", faq_title: "Good to know",
     modal_title: "Book a transfer", m_name: "Your name", m_phone: "Phone / WhatsApp", m_phone_ph: "+39 ...",
@@ -206,13 +194,7 @@ const I18N = {
     stats_eyebrow: "Perché noi", stats_title: "I numeri parlano più delle parole",
     stats1: "Anni di esperienza", stats2: "Transfer completati", stats3: "Clienti soddisfatti", stats4: "Assistenza su WhatsApp",
     clock_label: "Milano",
-    calc_eyebrow: "Prezzo", calc_title: "Calcola subito il tuo prezzo",
-    calc_note: "Inserisci il tuo percorso — ti mostriamo subito un prezzo stimato.",
-    f_pickup: "Punto di ritiro", f_dest: "Destinazione", f_addr_ph: "Indirizzo, aeroporto, hotel...",
-    calc_btn: "Calcola il prezzo", calc_error: "Seleziona entrambi gli indirizzi dall'elenco dei suggerimenti.",
     calc_distance: "Distanza",
-    calc_disclaimer: "Prezzi stimati. Il prezzo esatto viene confermato dal manager prima del viaggio.",
-    calc_fail: "Impossibile calcolare la distanza. Riprova o usa il modulo qui sopra.",
     reviews_eyebrow: "Recensioni", reviews_title: "Cosa dicono i nostri clienti",
     faq_eyebrow: "FAQ", faq_title: "Utile da sapere",
     modal_title: "Prenota un transfer", m_name: "Il tuo nome", m_phone: "Telefono / WhatsApp", m_phone_ph: "+39 ...",
@@ -274,13 +256,7 @@ const I18N = {
     stats_eyebrow: "Почему мы", stats_title: "Цифры говорят сами за себя",
     stats1: "Лет опыта", stats2: "Выполненных трансферов", stats3: "Довольных клиентов", stats4: "Поддержка в WhatsApp",
     clock_label: "Милан",
-    calc_eyebrow: "Цена", calc_title: "Рассчитайте цену мгновенно",
-    calc_note: "Укажите маршрут — мы сразу покажем ориентировочную цену.",
-    f_pickup: "Откуда", f_dest: "Куда", f_addr_ph: "Адрес, аэропорт, отель...",
-    calc_btn: "Рассчитать цену", calc_error: "Выберите оба адреса из списка подсказок.",
     calc_distance: "Расстояние",
-    calc_disclaimer: "Ориентировочные цены. Точную цену подтверждает менеджер перед поездкой.",
-    calc_fail: "Не удалось рассчитать расстояние. Попробуйте ещё раз или используйте форму выше.",
     reviews_eyebrow: "Отзывы", reviews_title: "Что говорят наши клиенты",
     faq_eyebrow: "FAQ", faq_title: "Полезно знать",
     modal_title: "Забронировать трансфер", m_name: "Ваше имя", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
@@ -529,30 +505,6 @@ const TERMS_DATA = {
    HELPERS
    ========================================================================= */
 function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || key; }
-function normalize(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").trim(); }
-
-function buildPlacesIndex(){
-  const places = [];
-  POPULAR.forEach(p=>places.push({name:p.name,price:p.price}));
-  Object.values(CATALOG).forEach(groups=>groups.forEach(g=>g.items.forEach(i=>places.push({name:i.name,price:i.price}))));
-  const seen = new Set(); const out = [];
-  places.forEach(p=>{ const n=normalize(p.name); if(!seen.has(n)){ seen.add(n); out.push(p); } });
-  return out;
-}
-const PLACES_INDEX = buildPlacesIndex();
-
-function findBasePrice(query){
-  const q = normalize(query);
-  if(!q || q==="milano" || q==="milan" || q==="milano, italy") return null;
-  let best = null;
-  PLACES_INDEX.forEach(p=>{
-    const n = normalize(p.name);
-    if(q===n || q.includes(n) || n.includes(q)){
-      if(!best || n.length > normalize(best.name).length) best = p;
-    }
-  });
-  return best;
-}
 
 /* =========================================================================
    RENDER FUNCTIONS
@@ -689,85 +641,91 @@ function renderTerms(){
 }
 
 /* =========================================================================
-   SEARCH / PRICING
+   SEARCH / PRICING — real address geocoding (Nominatim + Photon) + real
+   driving distance via OSRM, computed through the same per-class engine
+   as the rest of the site (see calcClassPrice below).
    ========================================================================= */
-function computeClassPrice(car, basePrice, pax, bags){
+function computeRealPrice(car, km, pax, bags){
   const fits = car.pax >= pax && car.bags >= bags;
-  if(car.mult === null) return { onRequest:true, fits };
-  return { price: Math.round(basePrice * car.mult), fits };
+  return { ...calcClassPrice(car.id, km), fits };
+}
+
+async function geocodeText(query){
+  const url = "https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(query) + "&format=json&limit=1&countrycodes=it,fr,ch,at,de&accept-language=" + currentLang;
+  const res = await fetch(url, { headers: { "Accept": "application/json" } });
+  if(!res.ok) return null;
+  const data = await res.json();
+  if(!data || !data[0]) return null;
+  return { lat: data[0].lat, lon: data[0].lon };
+}
+
+async function resolveCoords(input){
+  if(input.dataset.lat && input.dataset.lon) return { lat: input.dataset.lat, lon: input.dataset.lon };
+  const geo = await geocodeText(input.value.trim());
+  if(geo){ input.dataset.lat = geo.lat; input.dataset.lon = geo.lon; }
+  return geo;
 }
 
 function fillAndSearch(from, to){
-  document.getElementById("fromInput").value = from;
-  document.getElementById("toInput").value = to;
+  const fromEl = document.getElementById("fromInput"), toEl = document.getElementById("toInput");
+  fromEl.value = from; delete fromEl.dataset.lat; delete fromEl.dataset.lon;
+  toEl.value = to; delete toEl.dataset.lat; delete toEl.dataset.lon;
   runSearch();
   document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
-function runSearch(){
-  const from = document.getElementById("fromInput").value.trim() || "Milano";
-  const to = document.getElementById("toInput").value.trim();
+function showUnknownRoute(from, to){
+  const grid = document.getElementById("resultsGrid");
+  grid.innerHTML = `
+    <div class="result-card reveal" style="grid-column:1/-1;text-align:center;align-items:center">
+      <h3 class="result-card__name">${t("results_unknown_title")}</h3>
+      <p style="color:var(--text-soft);max-width:480px;margin:0 auto 18px">${t("results_unknown_text")}</p>
+      <button type="button" class="btn btn--gold" id="unknownCta">${t("results_unknown_cta")}</button>
+    </div>`;
+  document.getElementById("unknownCta").addEventListener("click", ()=> openBookingModal(`${from} → ${to || "?"}`));
+}
+
+async function runSearch(){
+  const fromEl = document.getElementById("fromInput"), toEl = document.getElementById("toInput");
+  const from = fromEl.value.trim() || "Milano";
+  const to = toEl.value.trim();
   const pax = parseInt(document.querySelector('[data-counter="pax"]').getAttribute("data-value"),10);
   const bags = parseInt(document.querySelector('[data-counter="bags"]').getAttribute("data-value"),10);
 
   const resultsSection = document.getElementById("results");
   resultsSection.hidden = false;
   document.getElementById("resultsRoute").textContent = `${from} → ${to || "?"}`;
-
-  let match = findBasePrice(to) || findBasePrice(from);
+  document.getElementById("resultsDistance").textContent = "";
   const grid = document.getElementById("resultsGrid");
+  grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-soft)">…</p>`;
 
-  if(!match){
-    grid.innerHTML = `
-      <div class="result-card reveal" style="grid-column:1/-1;text-align:center;align-items:center">
-        <h3 class="result-card__name">${t("results_unknown_title")}</h3>
-        <p style="color:var(--text-soft);max-width:480px;margin:0 auto 18px">${t("results_unknown_text")}</p>
-        <button type="button" class="btn btn--gold" id="unknownCta">${t("results_unknown_cta")}</button>
-      </div>`;
-    document.getElementById("unknownCta").addEventListener("click", ()=> openBookingModal(`${from} → ${to || "?"}`));
-  } else {
-    grid.innerHTML = renderFleetCards("results", (car)=> computeClassPrice(car, match.price, pax, bags));
+  if(!to){ showUnknownRoute(from, to); observeReveals(); return; }
+
+  try{
+    const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl), resolveCoords(toEl)]);
+    if(!fromCoords || !toCoords) throw new Error("geocode failed");
+    const km = await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
+    document.getElementById("resultsDistance").textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
+    grid.innerHTML = renderFleetCards("results", (car)=> computeRealPrice(car, km, pax, bags));
     grid.querySelectorAll("[data-book]").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         const car = FLEET.find(c=>c.id===btn.getAttribute("data-book"));
-        const data = computeClassPrice(car, match.price, pax, bags);
-        openBookingModal(`${from} → ${to}`, `${car.name} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
+        const data = computeRealPrice(car, km, pax, bags);
+        openBookingModal(`${from} → ${to}`, `${car.badge[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
       });
     });
+  }catch(err){
+    console.error("[Best Transfer Milan] Route pricing error:", err);
+    showUnknownRoute(from, to);
   }
   observeReveals();
 }
 
 /* =========================================================================
-   AUTOCOMPLETE
-   ========================================================================= */
-function setupAutocomplete(inputId, listId){
-  const input = document.getElementById(inputId);
-  const list = document.getElementById(listId);
-  const names = ["Milano", ...PLACES_INDEX.map(p=>p.name)];
-
-  input.addEventListener("input", ()=>{
-    const q = normalize(input.value);
-    if(!q){ list.classList.remove("is-open"); list.innerHTML=""; return; }
-    const matches = names.filter(n=>normalize(n).includes(q)).slice(0,8);
-    if(!matches.length){ list.classList.remove("is-open"); return; }
-    list.innerHTML = matches.map(n=>`<li><button type="button">${n}</button></li>`).join("");
-    list.classList.add("is-open");
-    list.querySelectorAll("button").forEach((b,i)=>{
-      b.addEventListener("click", ()=>{ input.value = matches[i]; list.classList.remove("is-open"); });
-    });
-  });
-  document.addEventListener("click", (e)=>{
-    if(!list.contains(e.target) && e.target!==input) list.classList.remove("is-open");
-  });
-}
-
-/* =========================================================================
-   INSTANT PRICE CALCULATOR — real address autocomplete (Nominatim + Photon)
-   + real driving distance via OSRM + a per-class tiered-rate formula
-   (base fee + declining €/km tiers, with fixed price curves for the two
-   minivan classes). Every price is rounded exactly like the source
-   calculator, then reduced by 1%.
+   PRICE ENGINE — per-class tiered-rate formula (base fee + declining €/km
+   tiers, with fixed price curves for the two minivan classes). Rounded
+   exactly like the source calculator, then reduced by 1%. Powers both the
+   hero search form and the "book this route" flow — one calculation path.
    ========================================================================= */
 const CALC_DISCOUNT = 0.99;
 
@@ -839,19 +797,6 @@ function calcClassPrice(carId, km){
   if(price < rate.min_fare) price = rate.min_fare;
   const sourcePrice = Math.round(price);
   return { price: Math.round(sourcePrice * CALC_DISCOUNT), fits:true };
-}
-
-function renderCalcGrid(km, routeText){
-  const grid = document.getElementById("calcGrid");
-  grid.innerHTML = renderFleetCards("results", (car)=> calcClassPrice(car.id, km));
-  grid.querySelectorAll("[data-book]").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const car = FLEET.find(c=>c.id===btn.getAttribute("data-book"));
-      const data = calcClassPrice(car.id, km);
-      openBookingModal(routeText, `${car.badge[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
-    });
-  });
-  observeReveals();
 }
 
 async function fetchDrivingDistanceKm(lat1, lon1, lat2, lon2){
@@ -945,46 +890,6 @@ function setupCalcAutocomplete(inputId, listId){
   });
   input.addEventListener("blur", ()=> setTimeout(closeList, 300));
   input.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeList(); });
-}
-
-function setupPriceCalculator(){
-  const pickupEl = document.getElementById("calcPickup");
-  const destEl = document.getElementById("calcDestination");
-  const btn = document.getElementById("calcBtn");
-  const errorEl = document.getElementById("calcError");
-  const resultEl = document.getElementById("calcResult");
-  const distanceEl = document.getElementById("calcDistance");
-  if(!pickupEl || !destEl || !btn) return;
-
-  setupCalcAutocomplete("calcPickup", "calcPickupList");
-  setupCalcAutocomplete("calcDestination", "calcDestinationList");
-
-  btn.addEventListener("click", async ()=>{
-    errorEl.hidden = true;
-    resultEl.hidden = true;
-    const lat1 = pickupEl.dataset.lat, lon1 = pickupEl.dataset.lon;
-    const lat2 = destEl.dataset.lat, lon2 = destEl.dataset.lon;
-    if(!lat1 || !lon1 || !lat2 || !lon2){
-      errorEl.textContent = t("calc_error");
-      errorEl.hidden = false;
-      return;
-    }
-    const originalText = btn.textContent;
-    btn.disabled = true; btn.textContent = "…";
-    try{
-      const km = await fetchDrivingDistanceKm(lat1, lon1, lat2, lon2);
-      const routeText = `${pickupEl.value} → ${destEl.value}`;
-      distanceEl.textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
-      renderCalcGrid(km, routeText);
-      resultEl.hidden = false;
-    }catch(err){
-      console.error("[Best Transfer Milan] Calculator error:", err);
-      errorEl.textContent = t("calc_fail");
-      errorEl.hidden = false;
-    }finally{
-      btn.disabled = false; btn.textContent = originalText;
-    }
-  });
 }
 
 /* =========================================================================
@@ -1130,13 +1035,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
   /* swap from/to */
   document.getElementById("swapBtn").addEventListener("click", ()=>{
     const fromEl = document.getElementById("fromInput"), toEl = document.getElementById("toInput");
-    const tmp = fromEl.value; fromEl.value = toEl.value; toEl.value = tmp;
+    const tmpVal = fromEl.value, tmpLat = fromEl.dataset.lat, tmpLon = fromEl.dataset.lon;
+    fromEl.value = toEl.value;
+    if(toEl.dataset.lat && toEl.dataset.lon){ fromEl.dataset.lat = toEl.dataset.lat; fromEl.dataset.lon = toEl.dataset.lon; }
+    else { delete fromEl.dataset.lat; delete fromEl.dataset.lon; }
+    toEl.value = tmpVal;
+    if(tmpLat && tmpLon){ toEl.dataset.lat = tmpLat; toEl.dataset.lon = tmpLon; }
+    else { delete toEl.dataset.lat; delete toEl.dataset.lon; }
   });
 
-  /* autocomplete */
-  setupAutocomplete("fromInput","fromList");
-  setupAutocomplete("toInput","toList");
-  setupPriceCalculator();
+  /* real address autocomplete (Nominatim + Photon) */
+  setupCalcAutocomplete("fromInput","fromList");
+  setupCalcAutocomplete("toInput","toList");
 
   /* search form */
   document.getElementById("searchForm").addEventListener("submit", (e)=>{
