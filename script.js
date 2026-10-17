@@ -790,43 +790,24 @@ const CALC_VAN_CURVES = {
   ]
 };
 
-const CALC_FLEET = {
-  economy:     { rate_per_km:1.88, base_fee:10, min_fare:60,  pax:3, bags:3, icon:"🚗",
-    name:{uk:"Економ",en:"Economy",it:"Classe Economica",ru:"Эконом"},
-    models:{uk:"Skoda Octavia, VW Golf або подібне",en:"Skoda Octavia, VW Golf or similar",it:"Skoda Octavia, VW Golf o simile",ru:"Skoda Octavia, VW Golf или похожее"} },
-  comfort:     { rate_per_km:2.10, base_fee:10, min_fare:70,  pax:3, bags:3, icon:"🚗",
-    name:{uk:"Комфорт",en:"Comfort",it:"Classe Comfort",ru:"Комфорт"},
-    models:{uk:"VW Passat, Toyota Camry або подібне",en:"VW Passat, Toyota Camry or similar",it:"VW Passat, Toyota Camry o simile",ru:"VW Passat, Toyota Camry или похожее"} },
-  business:    { rate_per_km:2.40, base_fee:35, min_fare:85,  pax:3, bags:2, icon:"🚘",
-    name:{uk:"Бізнес",en:"Business",it:"Business Class",ru:"Бизнес"},
-    models:{uk:"Mercedes E-Class, BMW 5 Series або подібне",en:"Mercedes E-Class, BMW 5 Series or similar",it:"Mercedes E-Class, BMW 5 Series o simile",ru:"Mercedes E-Class, BMW 5 Series или похожее"} },
-  premium:     { rate_per_km:4.15, base_fee:45, min_fare:120, pax:3, bags:2, icon:"👑",
-    name:{uk:"Преміум / VIP",en:"Premium / VIP",it:"Premium / VIP",ru:"Премиум / VIP"},
-    models:{uk:"Mercedes S-Class, BMW 7 Series або подібне",en:"Mercedes S-Class, BMW 7 Series or similar",it:"Mercedes S-Class, BMW 7 Series o simile",ru:"Mercedes S-Class, BMW 7 Series или похожее"} },
-  suv:         { rate_per_km:2.60, base_fee:35, min_fare:90,  pax:4, bags:4, icon:"🚙",
-    name:{uk:"SUV",en:"SUV",it:"SUV",ru:"SUV"},
-    models:{uk:"Mercedes GLE, Audi Q7 або подібне",en:"Mercedes GLE, Audi Q7 or similar",it:"Mercedes GLE, Audi Q7 o simile",ru:"Mercedes GLE, Audi Q7 или похожее"} },
-  minivan:     { curve:"minivan", min_fare:90, pax:7, bags:6, icon:"🚐",
-    name:{uk:"Стандарт мінівен",en:"Standard Minivan",it:"Minivan Standard",ru:"Стандарт минивэн"},
-    models:{uk:"Mercedes Vito, Renault Trafic",en:"Mercedes Vito, Renault Trafic",it:"Mercedes Vito, Renault Trafic",ru:"Mercedes Vito, Renault Trafic"} },
-  businessVan: { curve:"businessVan", min_fare:110, pax:7, bags:6, icon:"🚐",
-    name:{uk:"VIP мінівен",en:"VIP Minivan",it:"Minivan VIP (Classe V)",ru:"VIP минивэн"},
-    models:{uk:"Mercedes Classe V",en:"Mercedes V-Class",it:"Mercedes Classe V",ru:"Mercedes Classe V"} },
-  minibus16:   { rate_per_km:3.55, base_fee:60, min_fare:150, pax:9, bags:12, icon:"🚌",
-    name:{uk:"Мікроавтобус",en:"Minibus",it:"Minibus",ru:"Микроавтобус"},
-    models:{uk:"Mercedes Sprinter",en:"Mercedes Sprinter",it:"Mercedes Sprinter",ru:"Mercedes Sprinter"} },
-  minibus16_req:{ on_request:true, pax:16, bags:16, icon:"🚌",
-    name:{uk:"Мікроавтобус 16 місць",en:"Minibus (16 pax)",it:"Mercedes-Benz Minibus (16 pax)",ru:"Микроавтобус (16 мест)"},
-    models:{uk:"Комфортний мікроавтобус до 16 пасажирів",en:"Comfortable minibus up to 16 passengers",it:"Comodo minibus fino a 16 posti",ru:"Комфортный микроавтобус до 16 пассажиров"} }
+/* Rate tables keyed by our REAL fleet ids (see FLEET above) — only the cars
+   we actually operate, never invented models. */
+const CALC_RATES = {
+  economy:  { rate_per_km:1.88, base_fee:10, min_fare:60 },
+  comfort:  { rate_per_km:2.10, base_fee:10, min_fare:70 },
+  business: { rate_per_km:4.15, base_fee:45, min_fare:120 },
+  stdvan:   { curve:"minivan", min_fare:90 },
+  vipvan:   { curve:"businessVan", min_fare:110 },
+  microbus: { on_request:true }
 };
 
-function calcClassPrice(classKey, km){
-  const car = CALC_FLEET[classKey];
-  if(car.on_request) return { onRequest:true };
+function calcClassPrice(carId, km){
+  const rate = CALC_RATES[carId];
+  if(!rate || rate.on_request) return { onRequest:true, fits:true };
 
   let price;
-  if(car.curve){
-    const curve = CALC_VAN_CURVES[car.curve];
+  if(rate.curve){
+    const curve = CALC_VAN_CURVES[rate.curve];
     if(km <= curve[0].km){
       price = curve[0].price;
     } else {
@@ -847,40 +828,27 @@ function calcClassPrice(classKey, km){
       }
     }
   } else {
-    price = car.base_fee;
+    price = rate.base_fee;
     let kmLeft = km;
-    const tier1 = Math.min(kmLeft, 50); price += tier1 * car.rate_per_km; kmLeft -= tier1;
-    if(kmLeft > 0){ const tier2 = Math.min(kmLeft, 100); price += tier2 * car.rate_per_km * 0.85; kmLeft -= tier2; }
-    if(kmLeft > 0){ const tier3 = Math.min(kmLeft, 150); price += tier3 * car.rate_per_km * 0.70; kmLeft -= tier3; }
-    if(kmLeft > 0){ price += kmLeft * car.rate_per_km * 0.65; }
+    const tier1 = Math.min(kmLeft, 50); price += tier1 * rate.rate_per_km; kmLeft -= tier1;
+    if(kmLeft > 0){ const tier2 = Math.min(kmLeft, 100); price += tier2 * rate.rate_per_km * 0.85; kmLeft -= tier2; }
+    if(kmLeft > 0){ const tier3 = Math.min(kmLeft, 150); price += tier3 * rate.rate_per_km * 0.70; kmLeft -= tier3; }
+    if(kmLeft > 0){ price += kmLeft * rate.rate_per_km * 0.65; }
   }
 
-  if(price < car.min_fare) price = car.min_fare;
+  if(price < rate.min_fare) price = rate.min_fare;
   const sourcePrice = Math.round(price);
-  return { price: Math.round(sourcePrice * CALC_DISCOUNT) };
+  return { price: Math.round(sourcePrice * CALC_DISCOUNT), fits:true };
 }
 
 function renderCalcGrid(km, routeText){
   const grid = document.getElementById("calcGrid");
-  grid.innerHTML = Object.keys(CALC_FLEET).map(key=>{
-    const car = CALC_FLEET[key];
-    const data = calcClassPrice(key, km);
-    return `
-    <div class="result-card calc-card reveal" data-calc="${key}">
-      <div class="calc-card__icon">${car.icon}</div>
-      <h3 class="result-card__name">${car.name[currentLang]}</h3>
-      <p class="car-card__models">${car.models[currentLang]}</p>
-      <div class="result-card__specs"><span>👤 ${car.pax} ${t("car_pax")}</span><span>🧳 ${car.bags} ${t("car_bags")}</span></div>
-      <div class="result-card__price">${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}</div>
-      <button type="button" class="btn btn--gold" data-calc-book="${key}">${t("btn_book")}</button>
-    </div>`;
-  }).join("");
-  grid.querySelectorAll("[data-calc-book]").forEach(btn=>{
+  grid.innerHTML = renderFleetCards("results", (car)=> calcClassPrice(car.id, km));
+  grid.querySelectorAll("[data-book]").forEach(btn=>{
     btn.addEventListener("click", ()=>{
-      const key = btn.getAttribute("data-calc-book");
-      const car = CALC_FLEET[key];
-      const data = calcClassPrice(key, km);
-      openBookingModal(routeText, `${car.name[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
+      const car = FLEET.find(c=>c.id===btn.getAttribute("data-book"));
+      const data = calcClassPrice(car.id, km);
+      openBookingModal(routeText, `${car.badge[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
     });
   });
   observeReveals();
