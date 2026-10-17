@@ -710,16 +710,21 @@ async function runSearch(){
   try{
     const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl, "Milano"), resolveCoords(toEl)]);
     if(!fromCoords || !toCoords) throw new Error("geocode failed");
-    const flatKm = flatZoneKm(from, fromCoords, to, toCoords);
-    const km = flatKm !== null ? flatKm : await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
-    document.getElementById("resultsDistance").textContent = flatKm !== null
-      ? t("calc_flatrate")
-      : `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
-    grid.innerHTML = renderFleetCards("results", (car)=> computeRealPrice(car, km, pax, bags));
+    const flatZone = matchFlatZone(from, fromCoords, to, toCoords);
+    let priceFn;
+    if(flatZone){
+      document.getElementById("resultsDistance").textContent = t("calc_flatrate");
+      priceFn = (car)=> computeZonePrice(car, flatZone, pax, bags);
+    } else {
+      const km = await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
+      document.getElementById("resultsDistance").textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
+      priceFn = (car)=> computeRealPrice(car, km, pax, bags);
+    }
+    grid.innerHTML = renderFleetCards("results", priceFn);
     grid.querySelectorAll("[data-book]").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         const car = FLEET.find(c=>c.id===btn.getAttribute("data-book"));
-        const data = computeRealPrice(car, km, pax, bags);
+        const data = priceFn(car);
         openBookingModal(`${from} → ${to}`, `${car.badge[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
       });
     });
@@ -740,9 +745,11 @@ async function runSearch(){
    confirmed by real coordinates so it can't misfire on an unrelated route.
    ========================================================================= */
 const AIRPORT_ZONES = [
-  { lat: 45.6296, lon: 8.7236, radiusKm: 5, fixedKm: 45 },  // Malpensa (MXP)
-  { lat: 45.4451, lon: 9.2767, radiusKm: 3, fixedKm: 9 },   // Linate (LIN)
-  { lat: 45.6739, lon: 9.7042, radiusKm: 5, fixedKm: 50 }   // Bergamo Orio al Serio (BGY)
+  { key:"malpensa", lat: 45.6296, lon: 8.7236, radiusKm: 5, fixedKm: 45,
+    // client-provided fixed prices, Milan <-> Malpensa, any pickup point in the city
+    fixedPrices: { economy:95, comfort:105, business:140, stdvan:115, vipvan:130 } },
+  { key:"linate", lat: 45.4451, lon: 9.2767, radiusKm: 3, fixedKm: 9, fixedPrices: null },
+  { key:"bergamo", lat: 45.6739, lon: 9.7042, radiusKm: 5, fixedKm: 50, fixedPrices: null }
 ];
 
 function haversineKm(a, b){
@@ -757,7 +764,7 @@ function mentionsMilan(text){
   return /\bmilan[oa]?\b/i.test(text || "");
 }
 
-function flatZoneKm(fromText, fromCoords, toText, toCoords){
+function matchFlatZone(fromText, fromCoords, toText, toCoords){
   const from = { lat: parseFloat(fromCoords.lat), lon: parseFloat(fromCoords.lon) };
   const to = { lat: parseFloat(toCoords.lat), lon: parseFloat(toCoords.lon) };
   const fromIsMilan = mentionsMilan(fromText);
@@ -765,9 +772,17 @@ function flatZoneKm(fromText, fromCoords, toText, toCoords){
   for(const zone of AIRPORT_ZONES){
     const fromIsAirport = haversineKm(from, zone) <= zone.radiusKm;
     const toIsAirport = haversineKm(to, zone) <= zone.radiusKm;
-    if((fromIsMilan && toIsAirport) || (fromIsAirport && toIsMilan)) return zone.fixedKm;
+    if((fromIsMilan && toIsAirport) || (fromIsAirport && toIsMilan)) return zone;
   }
   return null;
+}
+
+function computeZonePrice(car, zone, pax, bags){
+  const fits = car.pax >= pax && car.bags >= bags;
+  if(zone.fixedPrices && zone.fixedPrices[car.id] !== undefined){
+    return { price: zone.fixedPrices[car.id], fits };
+  }
+  return { ...calcClassPrice(car.id, zone.fixedKm), fits };
 }
 
 /* =========================================================================
