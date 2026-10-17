@@ -71,6 +71,7 @@ const I18N = {
     stats1: "Років досвіду", stats2: "Виконаних трансферів", stats3: "Задоволених клієнтів", stats4: "Підтримка у WhatsApp",
     clock_label: "Мілан",
     calc_distance: "Відстань",
+    calc_flatrate: "Фіксована ціна: Мілан ↔ аеропорт (діє для будь-якої адреси в місті)",
     reviews_eyebrow: "Відгуки", reviews_title: "Що кажуть наші клієнти",
     faq_eyebrow: "FAQ", faq_title: "Корисно знати",
     modal_title: "Забронювати трансфер", m_name: "Ваше ім'я", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
@@ -133,6 +134,7 @@ const I18N = {
     stats1: "Years of experience", stats2: "Transfers completed", stats3: "Happy clients", stats4: "Support on WhatsApp",
     clock_label: "Milan",
     calc_distance: "Distance",
+    calc_flatrate: "Flat rate: Milan ↔ airport (applies to any address in the city)",
     reviews_eyebrow: "Reviews", reviews_title: "What our clients say",
     faq_eyebrow: "FAQ", faq_title: "Good to know",
     modal_title: "Book a transfer", m_name: "Your name", m_phone: "Phone / WhatsApp", m_phone_ph: "+39 ...",
@@ -195,6 +197,7 @@ const I18N = {
     stats1: "Anni di esperienza", stats2: "Transfer completati", stats3: "Clienti soddisfatti", stats4: "Assistenza su WhatsApp",
     clock_label: "Milano",
     calc_distance: "Distanza",
+    calc_flatrate: "Tariffa fissa: Milano ↔ aeroporto (valida per qualsiasi indirizzo in città)",
     reviews_eyebrow: "Recensioni", reviews_title: "Cosa dicono i nostri clienti",
     faq_eyebrow: "FAQ", faq_title: "Utile da sapere",
     modal_title: "Prenota un transfer", m_name: "Il tuo nome", m_phone: "Telefono / WhatsApp", m_phone_ph: "+39 ...",
@@ -257,6 +260,7 @@ const I18N = {
     stats1: "Лет опыта", stats2: "Выполненных трансферов", stats3: "Довольных клиентов", stats4: "Поддержка в WhatsApp",
     clock_label: "Милан",
     calc_distance: "Расстояние",
+    calc_flatrate: "Фиксированная цена: Милан ↔ аэропорт (для любого адреса в городе)",
     reviews_eyebrow: "Отзывы", reviews_title: "Что говорят наши клиенты",
     faq_eyebrow: "FAQ", faq_title: "Полезно знать",
     modal_title: "Забронировать трансфер", m_name: "Ваше имя", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
@@ -706,8 +710,11 @@ async function runSearch(){
   try{
     const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl, "Milano"), resolveCoords(toEl)]);
     if(!fromCoords || !toCoords) throw new Error("geocode failed");
-    const km = await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
-    document.getElementById("resultsDistance").textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
+    const flatKm = flatZoneKm(from, fromCoords, to, toCoords);
+    const km = flatKm !== null ? flatKm : await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
+    document.getElementById("resultsDistance").textContent = flatKm !== null
+      ? t("calc_flatrate")
+      : `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
     grid.innerHTML = renderFleetCards("results", (car)=> computeRealPrice(car, km, pax, bags));
     grid.querySelectorAll("[data-book]").forEach(btn=>{
       btn.addEventListener("click", ()=>{
@@ -721,6 +728,46 @@ async function runSearch(){
     showUnknownRoute(from, to);
   }
   observeReveals();
+}
+
+/* =========================================================================
+   FLAT ZONE PRICING — any address whose text contains "Milan(o)" going to
+   or from one of the three Milan airports uses a single fixed
+   representative distance instead of the live GPS distance. Client's
+   explicit rule: it doesn't matter whether the address is central or in
+   the outskirts — if the word "Milan" is in it, it's one flat price.
+   Only the "Milan side" is matched by text; the airport side is still
+   confirmed by real coordinates so it can't misfire on an unrelated route.
+   ========================================================================= */
+const AIRPORT_ZONES = [
+  { lat: 45.6296, lon: 8.7236, radiusKm: 5, fixedKm: 45 },  // Malpensa (MXP)
+  { lat: 45.4451, lon: 9.2767, radiusKm: 3, fixedKm: 9 },   // Linate (LIN)
+  { lat: 45.6739, lon: 9.7042, radiusKm: 5, fixedKm: 50 }   // Bergamo Orio al Serio (BGY)
+];
+
+function haversineKm(a, b){
+  const toRad = d => d * Math.PI / 180;
+  const R = 6371;
+  const dLat = toRad(b.lat - a.lat), dLon = toRad(b.lon - a.lon);
+  const s = Math.sin(dLat/2)**2 + Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
+}
+
+function mentionsMilan(text){
+  return /\bmilan[oa]?\b/i.test(text || "");
+}
+
+function flatZoneKm(fromText, fromCoords, toText, toCoords){
+  const from = { lat: parseFloat(fromCoords.lat), lon: parseFloat(fromCoords.lon) };
+  const to = { lat: parseFloat(toCoords.lat), lon: parseFloat(toCoords.lon) };
+  const fromIsMilan = mentionsMilan(fromText);
+  const toIsMilan = mentionsMilan(toText);
+  for(const zone of AIRPORT_ZONES){
+    const fromIsAirport = haversineKm(from, zone) <= zone.radiusKm;
+    const toIsAirport = haversineKm(to, zone) <= zone.radiusKm;
+    if((fromIsMilan && toIsAirport) || (fromIsAirport && toIsMilan)) return zone.fixedKm;
+  }
+  return null;
 }
 
 /* =========================================================================
