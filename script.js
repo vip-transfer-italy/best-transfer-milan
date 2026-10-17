@@ -765,7 +765,10 @@ function haversineKm(a, b){
 }
 
 function mentionsMilan(text){
-  return /\bmilan[oa]?\b/i.test(text || "");
+  const t = (text || "").toLowerCase();
+  // Latin (IT/EN): "Milan", "Milano" — plus Cyrillic city names Nominatim
+  // returns when the UI language is Ukrainian/Russian: "Мілан", "Милан".
+  return /\bmilan[oa]?\b/.test(t) || t.includes("мілан") || t.includes("милан");
 }
 
 function matchFlatZone(fromText, fromCoords, toText, toCoords){
