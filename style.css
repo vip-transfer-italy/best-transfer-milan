@@ -226,10 +226,11 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 .calculator__fields input:focus{outline:none;border-color:var(--gold)}
 .calculator__btn{width:100%;margin-top:22px}
 .calculator__error{margin-top:14px;color:#b14545;font-size:13.5px;text-align:center}
-.calculator__result{margin-top:26px;padding-top:24px;border-top:1px solid var(--border);text-align:center}
-.calculator__price{font-family:var(--ff-head);font-size:clamp(28px,6vw,36px);font-weight:700;color:var(--gold);margin-bottom:8px}
-.calculator__disclaimer{color:var(--text-soft);font-size:12.5px;max-width:380px;margin:0 auto 18px}
-.calculator__book{width:100%}
+.calculator__result{margin-top:40px;text-align:center}
+.calculator__distance{font-family:var(--ff-head);font-size:19px;font-weight:700;color:var(--text);margin-bottom:24px}
+.calculator__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:left;margin-bottom:26px}
+.calc-card__icon{font-size:26px;line-height:1}
+.calculator__disclaimer{color:var(--text-soft);font-size:12.5px;max-width:480px;margin:0 auto}
 .calculator .autocomplete__list{right:0}
 .calculator .autocomplete__list li{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;color:var(--text);font-size:13.5px;cursor:pointer}
 .calculator .autocomplete__list li:hover{background:var(--paper-soft)}
@@ -338,7 +339,6 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 .reviews__dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
 .reviews__dots button{width:9px;height:9px;border-radius:50%;background:var(--border)}
 .reviews__dots button.is-active{background:var(--gold);width:22px;border-radius:5px;transition:width .3s ease}
-.reviews__placeholder-note{text-align:center;margin-top:16px;color:var(--text-soft);font-size:12.5px}
 
 /* ===== faq ===== */
 .faq{background:var(--paper-soft)}
@@ -396,7 +396,7 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 
 /* ===== responsive ===== */
 @media (max-width:1080px){
-  .results__grid,.dest__grid{grid-template-columns:repeat(2,1fr)}
+  .results__grid,.dest__grid,.calculator__grid{grid-template-columns:repeat(2,1fr)}
   .fleet__grid{grid-template-columns:repeat(2,1fr)}
   .services__grid{grid-template-columns:repeat(2,1fr)}
   .quality__grid{grid-template-columns:1fr;gap:34px}
@@ -414,7 +414,7 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
   .container{padding:0 18px}
   .hero{padding:120px 0 130px;min-height:46vh}
   .section{padding:64px 0}
-  .results__grid,.dest__grid,.fleet__grid,.services__grid{grid-template-columns:1fr}
+  .results__grid,.dest__grid,.fleet__grid,.services__grid,.calculator__grid{grid-template-columns:1fr}
   .searchcard-wrap{margin-top:-100px}
   .searchcard{padding:22px 18px}
   .modal__form{grid-template-columns:1fr}

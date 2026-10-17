@@ -74,12 +74,10 @@ const I18N = {
     calc_note: "Вкажіть будь-яку адресу — ми одразу покажемо орієнтовну ціну за реальною відстанню.",
     f_pickup: "Звідки", f_dest: "Куди", f_addr_ph: "Адреса, аеропорт, готель...",
     calc_btn: "Розрахувати ціну", calc_error: "Оберіть обидві адреси зі списку підказок.",
-    calc_price_label: "Орієнтовна ціна",
-    calc_disclaimer: "Орієнтовна ціна. Точну вартість підтверджує менеджер перед поїздкою.",
-    calc_book: "Забронювати цей маршрут",
+    calc_distance: "Відстань",
+    calc_disclaimer: "Орієнтовні ціни. Точну вартість підтверджує менеджер перед поїздкою.",
     calc_fail: "Не вдалося розрахувати відстань. Спробуйте ще раз або скористайтеся формою вище.",
     reviews_eyebrow: "Відгуки", reviews_title: "Що кажуть наші клієнти",
-    reviews_placeholder_note: "[ВСТАВИТИ: реальні відгуки клієнтів — наведені приклади підлягають заміні]",
     faq_eyebrow: "FAQ", faq_title: "Корисно знати",
     modal_title: "Забронювати трансфер", m_name: "Ваше ім'я", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Коментар (необов'язково)", m_comment_ph: "Номер рейсу, дитяче крісло тощо",
@@ -144,12 +142,10 @@ const I18N = {
     calc_note: "Enter your route — we'll show an estimated price right away.",
     f_pickup: "Pickup location", f_dest: "Destination", f_addr_ph: "Address, airport, hotel...",
     calc_btn: "Calculate price", calc_error: "Please pick both addresses from the suggestion list.",
-    calc_price_label: "Estimated price",
-    calc_disclaimer: "Estimated price. The exact price is confirmed by the manager before the ride.",
-    calc_book: "Book this route",
+    calc_distance: "Distance",
+    calc_disclaimer: "Estimated prices. The exact price is confirmed by the manager before the ride.",
     calc_fail: "Could not calculate the distance. Please try again or use the form above.",
     reviews_eyebrow: "Reviews", reviews_title: "What our clients say",
-    reviews_placeholder_note: "[INSERT: real client reviews — the examples above are placeholders to be replaced]",
     faq_eyebrow: "FAQ", faq_title: "Good to know",
     modal_title: "Book a transfer", m_name: "Your name", m_phone: "Phone / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Comment (optional)", m_comment_ph: "Flight number, child seat, etc.",
@@ -214,12 +210,10 @@ const I18N = {
     calc_note: "Inserisci il tuo percorso — ti mostriamo subito un prezzo stimato.",
     f_pickup: "Punto di ritiro", f_dest: "Destinazione", f_addr_ph: "Indirizzo, aeroporto, hotel...",
     calc_btn: "Calcola il prezzo", calc_error: "Seleziona entrambi gli indirizzi dall'elenco dei suggerimenti.",
-    calc_price_label: "Prezzo stimato",
-    calc_disclaimer: "Prezzo stimato. Il prezzo esatto viene confermato dal manager prima del viaggio.",
-    calc_book: "Prenota questo percorso",
+    calc_distance: "Distanza",
+    calc_disclaimer: "Prezzi stimati. Il prezzo esatto viene confermato dal manager prima del viaggio.",
     calc_fail: "Impossibile calcolare la distanza. Riprova o usa il modulo qui sopra.",
     reviews_eyebrow: "Recensioni", reviews_title: "Cosa dicono i nostri clienti",
-    reviews_placeholder_note: "[INSERIRE: recensioni reali dei clienti — gli esempi sopra sono segnaposto da sostituire]",
     faq_eyebrow: "FAQ", faq_title: "Utile da sapere",
     modal_title: "Prenota un transfer", m_name: "Il tuo nome", m_phone: "Telefono / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Commento (opzionale)", m_comment_ph: "Numero di volo, seggiolino per bambini, ecc.",
@@ -284,12 +278,10 @@ const I18N = {
     calc_note: "Укажите маршрут — мы сразу покажем ориентировочную цену.",
     f_pickup: "Откуда", f_dest: "Куда", f_addr_ph: "Адрес, аэропорт, отель...",
     calc_btn: "Рассчитать цену", calc_error: "Выберите оба адреса из списка подсказок.",
-    calc_price_label: "Ориентировочная цена",
-    calc_disclaimer: "Ориентировочная цена. Точную цену подтверждает менеджер перед поездкой.",
-    calc_book: "Забронировать этот маршрут",
+    calc_distance: "Расстояние",
+    calc_disclaimer: "Ориентировочные цены. Точную цену подтверждает менеджер перед поездкой.",
     calc_fail: "Не удалось рассчитать расстояние. Попробуйте ещё раз или используйте форму выше.",
     reviews_eyebrow: "Отзывы", reviews_title: "Что говорят наши клиенты",
-    reviews_placeholder_note: "[ВСТАВИТЬ: реальные отзывы клиентов — приведённые примеры подлежат замене]",
     faq_eyebrow: "FAQ", faq_title: "Полезно знать",
     modal_title: "Забронировать трансфер", m_name: "Ваше имя", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Комментарий (необязательно)", m_comment_ph: "Номер рейса, детское кресло и т.д.",
@@ -668,7 +660,6 @@ function renderReviews(){
     d.addEventListener("click", ()=> showReview(parseInt(d.getAttribute("data-dot"),10)));
   });
   reviewIndex = 0; showReview(0);
-  document.getElementById("reviewsPlaceholderNote").hidden = false;
 
   const trustQuotes = document.getElementById("trustQuotes");
   trustQuotes.innerHTML = data.map((r,i)=>`<span class="${i===0?"is-active":""}">"${r.text.replace(/^\[.*?\]\s*/,"").slice(0,70) || r.meta}"</span>`).join("");
@@ -773,15 +764,126 @@ function setupAutocomplete(inputId, listId){
 
 /* =========================================================================
    INSTANT PRICE CALCULATOR — real address autocomplete (Nominatim + Photon)
-   + real driving distance via OSRM + a linear base/km/min formula.
+   + real driving distance via OSRM + a per-class tiered-rate formula
+   (base fee + declining €/km tiers, with fixed price curves for the two
+   minivan classes). Every price is rounded exactly like the source
+   calculator, then reduced by 1%.
    ========================================================================= */
-const PRICE_BASE = 15;
-const PRICE_PER_KM = 1.4;
-const PRICE_MIN = 35;
-const PRICE_DISCOUNT = 0.99;
+const CALC_DISCOUNT = 0.99;
 
-function estimatePrice(km){
-  return Math.round(Math.max(PRICE_MIN, PRICE_BASE + PRICE_PER_KM * km) * PRICE_DISCOUNT);
+const CALC_VAN_CURVES = {
+  minivan: [
+    { km:0,   price:90 },  { km:65,  price:120 }, { km:75,  price:138 },
+    { km:100, price:183 }, { km:125, price:228 }, { km:145, price:265 },
+    { km:150, price:274 }, { km:200, price:360 }, { km:250, price:440 },
+    { km:300, price:540 }, { km:350, price:628 }, { km:500, price:897 },
+    { km:600, price:1048 },{ km:700, price:1255 },{ km:800, price:1398 }
+  ],
+  businessVan: [
+    { km:0,   price:110 }, { km:65,  price:140 }, { km:70,  price:147 },
+    { km:75,  price:160 }, { km:100, price:215 }, { km:125, price:265 },
+    { km:145, price:310 }, { km:150, price:316 }, { km:156, price:330 },
+    { km:200, price:410 }, { km:250, price:504 }, { km:300, price:605 },
+    { km:311, price:630 }, { km:350, price:705 }, { km:374, price:754 },
+    { km:500, price:1008 },{ km:600, price:1200 },{ km:700, price:1411 },
+    { km:779, price:1506 },{ km:800, price:1600 }
+  ]
+};
+
+const CALC_FLEET = {
+  economy:     { rate_per_km:1.88, base_fee:10, min_fare:60,  pax:3, bags:3, icon:"🚗",
+    name:{uk:"Економ",en:"Economy",it:"Classe Economica",ru:"Эконом"},
+    models:{uk:"Skoda Octavia, VW Golf або подібне",en:"Skoda Octavia, VW Golf or similar",it:"Skoda Octavia, VW Golf o simile",ru:"Skoda Octavia, VW Golf или похожее"} },
+  comfort:     { rate_per_km:2.10, base_fee:10, min_fare:70,  pax:3, bags:3, icon:"🚗",
+    name:{uk:"Комфорт",en:"Comfort",it:"Classe Comfort",ru:"Комфорт"},
+    models:{uk:"VW Passat, Toyota Camry або подібне",en:"VW Passat, Toyota Camry or similar",it:"VW Passat, Toyota Camry o simile",ru:"VW Passat, Toyota Camry или похожее"} },
+  business:    { rate_per_km:2.40, base_fee:35, min_fare:85,  pax:3, bags:2, icon:"🚘",
+    name:{uk:"Бізнес",en:"Business",it:"Business Class",ru:"Бизнес"},
+    models:{uk:"Mercedes E-Class, BMW 5 Series або подібне",en:"Mercedes E-Class, BMW 5 Series or similar",it:"Mercedes E-Class, BMW 5 Series o simile",ru:"Mercedes E-Class, BMW 5 Series или похожее"} },
+  premium:     { rate_per_km:4.15, base_fee:45, min_fare:120, pax:3, bags:2, icon:"👑",
+    name:{uk:"Преміум / VIP",en:"Premium / VIP",it:"Premium / VIP",ru:"Премиум / VIP"},
+    models:{uk:"Mercedes S-Class, BMW 7 Series або подібне",en:"Mercedes S-Class, BMW 7 Series or similar",it:"Mercedes S-Class, BMW 7 Series o simile",ru:"Mercedes S-Class, BMW 7 Series или похожее"} },
+  suv:         { rate_per_km:2.60, base_fee:35, min_fare:90,  pax:4, bags:4, icon:"🚙",
+    name:{uk:"SUV",en:"SUV",it:"SUV",ru:"SUV"},
+    models:{uk:"Mercedes GLE, Audi Q7 або подібне",en:"Mercedes GLE, Audi Q7 or similar",it:"Mercedes GLE, Audi Q7 o simile",ru:"Mercedes GLE, Audi Q7 или похожее"} },
+  minivan:     { curve:"minivan", min_fare:90, pax:7, bags:6, icon:"🚐",
+    name:{uk:"Стандарт мінівен",en:"Standard Minivan",it:"Minivan Standard",ru:"Стандарт минивэн"},
+    models:{uk:"Mercedes Vito, Renault Trafic",en:"Mercedes Vito, Renault Trafic",it:"Mercedes Vito, Renault Trafic",ru:"Mercedes Vito, Renault Trafic"} },
+  businessVan: { curve:"businessVan", min_fare:110, pax:7, bags:6, icon:"🚐",
+    name:{uk:"VIP мінівен",en:"VIP Minivan",it:"Minivan VIP (Classe V)",ru:"VIP минивэн"},
+    models:{uk:"Mercedes Classe V",en:"Mercedes V-Class",it:"Mercedes Classe V",ru:"Mercedes Classe V"} },
+  minibus16:   { rate_per_km:3.55, base_fee:60, min_fare:150, pax:9, bags:12, icon:"🚌",
+    name:{uk:"Мікроавтобус",en:"Minibus",it:"Minibus",ru:"Микроавтобус"},
+    models:{uk:"Mercedes Sprinter",en:"Mercedes Sprinter",it:"Mercedes Sprinter",ru:"Mercedes Sprinter"} },
+  minibus16_req:{ on_request:true, pax:16, bags:16, icon:"🚌",
+    name:{uk:"Мікроавтобус 16 місць",en:"Minibus (16 pax)",it:"Mercedes-Benz Minibus (16 pax)",ru:"Микроавтобус (16 мест)"},
+    models:{uk:"Комфортний мікроавтобус до 16 пасажирів",en:"Comfortable minibus up to 16 passengers",it:"Comodo minibus fino a 16 posti",ru:"Комфортный микроавтобус до 16 пассажиров"} }
+};
+
+function calcClassPrice(classKey, km){
+  const car = CALC_FLEET[classKey];
+  if(car.on_request) return { onRequest:true };
+
+  let price;
+  if(car.curve){
+    const curve = CALC_VAN_CURVES[car.curve];
+    if(km <= curve[0].km){
+      price = curve[0].price;
+    } else {
+      let found = false;
+      for(let i=0;i<curve.length-1;i++){
+        const p1 = curve[i], p2 = curve[i+1];
+        if(km >= p1.km && km <= p2.km){
+          const progress = (km - p1.km) / (p2.km - p1.km);
+          price = p1.price + progress * (p2.price - p1.price);
+          found = true;
+          break;
+        }
+      }
+      if(!found){
+        const last = curve[curve.length-1], prev = curve[curve.length-2];
+        const extraRate = (last.price - prev.price) / (last.km - prev.km);
+        price = last.price + (km - last.km) * extraRate;
+      }
+    }
+  } else {
+    price = car.base_fee;
+    let kmLeft = km;
+    const tier1 = Math.min(kmLeft, 50); price += tier1 * car.rate_per_km; kmLeft -= tier1;
+    if(kmLeft > 0){ const tier2 = Math.min(kmLeft, 100); price += tier2 * car.rate_per_km * 0.85; kmLeft -= tier2; }
+    if(kmLeft > 0){ const tier3 = Math.min(kmLeft, 150); price += tier3 * car.rate_per_km * 0.70; kmLeft -= tier3; }
+    if(kmLeft > 0){ price += kmLeft * car.rate_per_km * 0.65; }
+  }
+
+  if(price < car.min_fare) price = car.min_fare;
+  const sourcePrice = Math.round(price);
+  return { price: Math.round(sourcePrice * CALC_DISCOUNT) };
+}
+
+function renderCalcGrid(km, routeText){
+  const grid = document.getElementById("calcGrid");
+  grid.innerHTML = Object.keys(CALC_FLEET).map(key=>{
+    const car = CALC_FLEET[key];
+    const data = calcClassPrice(key, km);
+    return `
+    <div class="result-card calc-card reveal" data-calc="${key}">
+      <div class="calc-card__icon">${car.icon}</div>
+      <h3 class="result-card__name">${car.name[currentLang]}</h3>
+      <p class="car-card__models">${car.models[currentLang]}</p>
+      <div class="result-card__specs"><span>👤 ${car.pax} ${t("car_pax")}</span><span>🧳 ${car.bags} ${t("car_bags")}</span></div>
+      <div class="result-card__price">${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}</div>
+      <button type="button" class="btn btn--gold" data-calc-book="${key}">${t("btn_book")}</button>
+    </div>`;
+  }).join("");
+  grid.querySelectorAll("[data-calc-book]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const key = btn.getAttribute("data-calc-book");
+      const car = CALC_FLEET[key];
+      const data = calcClassPrice(key, km);
+      openBookingModal(routeText, `${car.name[currentLang]} · ${data.onRequest ? ON_REQUEST_LABEL[currentLang] : fmtPrice(data.price)}`);
+    });
+  });
+  observeReveals();
 }
 
 async function fetchDrivingDistanceKm(lat1, lon1, lat2, lon2){
@@ -806,7 +908,7 @@ function setupCalcAutocomplete(inputId, listId){
   const closeList = ()=>{ list.classList.remove("is-open"); list.innerHTML = ""; };
 
   async function fetchNominatim(query, signal){
-    const url = "https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(query) + "&format=json&limit=5&addressdetails=0&countrycodes=it,fr,ch,at&accept-language=" + currentLang;
+    const url = "https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(query) + "&format=json&limit=5&addressdetails=0&countrycodes=it,fr,ch,at,de&accept-language=" + currentLang;
     const res = await fetch(url, { signal, headers: { "Accept": "application/json" } });
     if(!res.ok) throw new Error("Nominatim HTTP " + res.status);
     const data = await res.json();
@@ -814,8 +916,8 @@ function setupCalcAutocomplete(inputId, listId){
   }
 
   async function fetchPhoton(query, signal){
-    // bbox ~ Italy (incl. Sicily) + France + Switzerland + Austria
-    const url = "https://photon.komoot.io/api/?q=" + encodeURIComponent(query) + "&limit=5&lang=en&bbox=5,36,17,49";
+    // bbox ~ Italy (incl. Sicily) + France + Switzerland + Austria + Germany
+    const url = "https://photon.komoot.io/api/?q=" + encodeURIComponent(query) + "&limit=5&lang=en&bbox=5,36,17,55";
     const res = await fetch(url, { signal });
     if(!res.ok) throw new Error("Photon HTTP " + res.status);
     const data = await res.json();
@@ -883,14 +985,11 @@ function setupPriceCalculator(){
   const btn = document.getElementById("calcBtn");
   const errorEl = document.getElementById("calcError");
   const resultEl = document.getElementById("calcResult");
-  const priceEl = document.getElementById("calcPrice");
-  const bookBtn = document.getElementById("calcBookBtn");
+  const distanceEl = document.getElementById("calcDistance");
   if(!pickupEl || !destEl || !btn) return;
 
   setupCalcAutocomplete("calcPickup", "calcPickupList");
   setupCalcAutocomplete("calcDestination", "calcDestinationList");
-
-  let lastPriceLabel = "";
 
   btn.addEventListener("click", async ()=>{
     errorEl.hidden = true;
@@ -906,9 +1005,9 @@ function setupPriceCalculator(){
     btn.disabled = true; btn.textContent = "…";
     try{
       const km = await fetchDrivingDistanceKm(lat1, lon1, lat2, lon2);
-      const price = estimatePrice(km);
-      lastPriceLabel = `~${price} €`;
-      priceEl.textContent = `${t("calc_price_label")}: ${lastPriceLabel}`;
+      const routeText = `${pickupEl.value} → ${destEl.value}`;
+      distanceEl.textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
+      renderCalcGrid(km, routeText);
       resultEl.hidden = false;
     }catch(err){
       console.error("[Best Transfer Milan] Calculator error:", err);
@@ -917,11 +1016,6 @@ function setupPriceCalculator(){
     }finally{
       btn.disabled = false; btn.textContent = originalText;
     }
-  });
-
-  bookBtn.addEventListener("click", ()=>{
-    const route = `${pickupEl.value} → ${destEl.value}`;
-    openBookingModal(route, lastPriceLabel);
   });
 }
 
