@@ -15,7 +15,7 @@ const CONFIG = {
 function fmtPrice(eur){
   return `${Math.round(eur)} €`;
 }
-let currentLang = localStorage.getItem("btm_lang") || "uk";
+let currentLang = localStorage.getItem("btm_lang") || "en";
 
 /* =========================================================================
    TRANSLATIONS

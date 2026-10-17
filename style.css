@@ -394,7 +394,10 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 }
 @media (max-width:640px){
   .container{padding:0 18px}
-  .hero{padding:120px 0 130px;min-height:46vh}
+  .hero{padding:92px 0 80px;min-height:300px}
+  .hero__eyebrow{margin-bottom:10px;font-size:11.5px}
+  .hero__title{margin-bottom:10px}
+  .hero__subtitle{font-size:14.5px;line-height:1.55}
   .section{padding:64px 0}
   .results__grid,.dest__grid,.fleet__grid,.services__grid{grid-template-columns:1fr}
   .searchcard-wrap{margin-top:-100px}
