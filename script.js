@@ -478,25 +478,25 @@ const TERMS_DATA = {
   uk: `<h4>1. Загальні умови</h4><p>Best Transfer Milan надає послуги приватного трансферу легковими автомобілями та мінівенами з водієм на території Мілана, Італії та суміжних країн. Бронюючи поїздку, клієнт погоджується з цими умовами.</p>
   <h4>2. Ціна та оплата</h4><p>Вартість поїздки фіксується і підтверджується менеджером до початку трансферу. Оплата приймається готівкою, карткою водію або банківським переказом заздалегідь. Ціни на сайті є орієнтовними; остаточна вартість залежить від точної адреси, часу та обраного класу авто.</p>
   <h4>3. Скасування та зміни</h4><p>Безкоштовне скасування або перенесення поїздки можливе за 24 години до запланованого часу. Скасування пізніше може супроводжуватися частковою оплатою.</p>
-  <h4>4. Затримка рейсу</h4><p>Для трансферів з аеропорту ми відстежуємо номер рейсу та безкоштовно чекаємо до 60 хвилин після фактичного приземлення.</p>
+  <h4>4. Затримка рейсу</h4><p>Під час організації трансферів з аеропорту ми здійснюємо моніторинг статусу рейсу. У вартість включено до 60 хвилин безкоштовного очікування з моменту фактичного прибуття літака. Додатковий час очікування оплачується за тарифом 30 євро на годину.</p>
   <h4>5. Багаж та пасажири</h4><p>Будь ласка, вказуйте точну кількість пасажирів і одиниць багажу під час бронювання — це допомагає підібрати авто відповідного класу.</p>
   <h4>6. Конфіденційність</h4><p>Дані, надані під час бронювання (ім'я, телефон, маршрут), використовуються виключно для організації поїздки та не передаються третім особам, окрім випадків, передбачених законом.</p>`,
   en: `<h4>1. General terms</h4><p>Best Transfer Milan provides private chauffeur transfer services using cars and vans across Milan, Italy and neighbouring countries. By booking a ride, the client agrees to these terms.</p>
   <h4>2. Price & payment</h4><p>The fare is fixed and confirmed by the manager before the transfer begins. Payment is accepted in cash or by card to the driver, or by bank transfer in advance. Prices on the website are indicative; the final fare depends on the exact address, time and selected car class.</p>
   <h4>3. Cancellations & changes</h4><p>Free cancellation or rescheduling is available up to 24 hours before the scheduled time. Later cancellations may involve a partial charge.</p>
-  <h4>4. Flight delays</h4><p>For airport transfers we track your flight number and wait free of charge for up to 60 minutes after actual landing.</p>
+  <h4>4. Flight delays</h4><p>When organising airport transfers, we monitor the flight status. Up to 60 minutes of free waiting time from the aircraft's actual arrival is included in the price. Additional waiting time is charged at a rate of €30 per hour.</p>
   <h4>5. Luggage & passengers</h4><p>Please provide the exact number of passengers and luggage items when booking — this helps us select the right car class.</p>
   <h4>6. Privacy</h4><p>Details provided during booking (name, phone, route) are used solely to organise the ride and are not shared with third parties except where required by law.</p>`,
   it: `<h4>1. Condizioni generali</h4><p>Best Transfer Milan fornisce servizi di transfer privato con driver, con auto e minivan a Milano, in Italia e nei paesi limitrofi. Prenotando un viaggio, il cliente accetta queste condizioni.</p>
   <h4>2. Prezzo e pagamento</h4><p>La tariffa è fissa e confermata dal manager prima dell'inizio del transfer. Il pagamento è accettato in contanti o con carta al driver, oppure tramite bonifico in anticipo. I prezzi sul sito sono indicativi; la tariffa finale dipende dall'indirizzo esatto, dall'orario e dalla classe dell'auto scelta.</p>
   <h4>3. Cancellazioni e modifiche</h4><p>La cancellazione o la modifica gratuita sono possibili fino a 24 ore prima dell'orario previsto. Cancellazioni successive possono comportare un addebito parziale.</p>
-  <h4>4. Ritardo del volo</h4><p>Per i transfer aeroportuali monitoriamo il numero di volo e attendiamo gratuitamente fino a 60 minuti dopo l'atterraggio effettivo.</p>
+  <h4>4. Ritardo del volo</h4><p>Nell'organizzare i transfer aeroportuali, monitoriamo lo stato del volo. Nel prezzo sono inclusi fino a 60 minuti di attesa gratuita dal momento dell'atterraggio effettivo dell'aereo. Il tempo di attesa aggiuntivo viene addebitato a una tariffa di 30 € all'ora.</p>
   <h4>5. Bagagli e passeggeri</h4><p>Si prega di indicare il numero esatto di passeggeri e bagagli al momento della prenotazione — questo ci aiuta a scegliere la classe di auto adeguata.</p>
   <h4>6. Privacy</h4><p>I dati forniti durante la prenotazione (nome, telefono, percorso) sono utilizzati esclusivamente per organizzare il viaggio e non vengono condivisi con terzi, salvo obbligo di legge.</p>`,
   ru: `<h4>1. Общие условия</h4><p>Best Transfer Milan предоставляет услуги приватного трансфера легковыми автомобилями и минивэнами с водителем на территории Милана, Италии и соседних стран. Бронируя поездку, клиент соглашается с этими условиями.</p>
   <h4>2. Цена и оплата</h4><p>Стоимость поездки фиксируется и подтверждается менеджером до начала трансфера. Оплата принимается наличными, картой водителю или банковским переводом заранее. Цены на сайте являются ориентировочными; итоговая стоимость зависит от точного адреса, времени и выбранного класса авто.</p>
   <h4>3. Отмена и изменения</h4><p>Бесплатная отмена или перенос поездки возможны за 24 часа до запланированного времени. Более позднее отмена может сопровождаться частичной оплатой.</p>
-  <h4>4. Задержка рейса</h4><p>Для трансферов из аэропорта мы отслеживаем номер рейса и бесплатно ждём до 60 минут после фактического приземления.</p>
+  <h4>4. Задержка рейса</h4><p>При организации трансферов из аэропорта мы осуществляем мониторинг статуса рейса. В стоимость включено до 60 минут бесплатного ожидания с момента фактического прибытия самолета. Дополнительное время ожидания оплачивается по тарифу 30 евро за час.</p>
   <h4>5. Багаж и пассажиры</h4><p>Пожалуйста, указывайте точное количество пассажиров и единиц багажа при бронировании — это помогает подобрать авто подходящего класса.</p>
   <h4>6. Конфиденциальность</h4><p>Данные, предоставленные при бронировании (имя, телефон, маршрут), используются исключительно для организации поездки и не передаются третьим лицам, кроме случаев, предусмотренных законом.</p>`
 };
@@ -659,9 +659,11 @@ async function geocodeText(query){
   return { lat: data[0].lat, lon: data[0].lon };
 }
 
-async function resolveCoords(input){
+async function resolveCoords(input, fallbackText){
   if(input.dataset.lat && input.dataset.lon) return { lat: input.dataset.lat, lon: input.dataset.lon };
-  const geo = await geocodeText(input.value.trim());
+  const query = input.value.trim() || fallbackText;
+  if(!query) return null;
+  const geo = await geocodeText(query);
   if(geo){ input.dataset.lat = geo.lat; input.dataset.lon = geo.lon; }
   return geo;
 }
@@ -702,7 +704,7 @@ async function runSearch(){
   if(!to){ showUnknownRoute(from, to); observeReveals(); return; }
 
   try{
-    const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl), resolveCoords(toEl)]);
+    const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl, "Milano"), resolveCoords(toEl)]);
     if(!fromCoords || !toCoords) throw new Error("geocode failed");
     const km = await fetchDrivingDistanceKm(fromCoords.lat, fromCoords.lon, toCoords.lat, toCoords.lon);
     document.getElementById("resultsDistance").textContent = `${t("calc_distance")}: ${Math.round(km)} ${currentLang==="uk"||currentLang==="ru" ? "км" : "km"}`;
@@ -828,13 +830,29 @@ function setupCalcAutocomplete(inputId, listId){
     return (Array.isArray(data) ? data : []).filter(p=>p.display_name).map(p=>({ name: p.display_name, lat: p.lat, lon: p.lon }));
   }
 
+  // Low-value OSM categories (sports fields, racetracks, raw landuse polygons,
+  // footpaths...) that Photon's fuzzy text match surfaces for short queries
+  // like airport codes, but which are never a sensible pickup/drop-off point.
+  const PHOTON_JUNK_KEYS = new Set(["landuse", "natural"]);
+  const PHOTON_JUNK_VALUES = new Set([
+    "track","raceway","bridleway","path","cycleway","steps","footway",
+    "pitch","stadium","golf_course","sports_centre","nature_reserve",
+    "forest","farmland","farm","allotments","cemetery","quarry","landfill",
+    "military","wood","scrub","grass","recreation_ground","meadow"
+  ]);
+  function isRelevantPhotonFeature(p){
+    if(PHOTON_JUNK_KEYS.has(p.osm_key)) return false;
+    if(PHOTON_JUNK_VALUES.has(p.osm_value)) return false;
+    return true;
+  }
+
   async function fetchPhoton(query, signal){
     // bbox ~ Italy (incl. Sicily) + France + Switzerland + Austria + Germany
     const url = "https://photon.komoot.io/api/?q=" + encodeURIComponent(query) + "&limit=5&lang=en&bbox=5,36,17,55";
     const res = await fetch(url, { signal });
     if(!res.ok) throw new Error("Photon HTTP " + res.status);
     const data = await res.json();
-    return (data.features || []).map(f=>{
+    return (data.features || []).filter(f=> isRelevantPhotonFeature(f.properties || {})).map(f=>{
       const p = f.properties || {};
       const coords = (f.geometry && f.geometry.coordinates) || [];
       const name = [p.name, p.street, p.housenumber, p.city, p.state, p.country].filter(Boolean).join(", ");
