@@ -663,11 +663,15 @@ async function geocodeText(query){
   return { lat: data[0].lat, lon: data[0].lon };
 }
 
-async function resolveCoords(input, fallbackText){
+// Default reference point for a bare "Milano" (no specific address picked):
+// Monumento a Garibaldi, Largo Cairoli — client-specified fixed point.
+const MILAN_REFERENCE_POINT = { lat: "45.4682129", lon: "9.1822582" };
+
+async function resolveCoords(input, fallbackCoords){
   if(input.dataset.lat && input.dataset.lon) return { lat: input.dataset.lat, lon: input.dataset.lon };
-  const query = input.value.trim() || fallbackText;
-  if(!query) return null;
-  const geo = await geocodeText(query);
+  const value = input.value.trim();
+  if(!value || /^milan[oa]?$/i.test(value)) return fallbackCoords || null;
+  const geo = await geocodeText(value);
   if(geo){ input.dataset.lat = geo.lat; input.dataset.lon = geo.lon; }
   return geo;
 }
@@ -708,7 +712,7 @@ async function runSearch(){
   if(!to){ showUnknownRoute(from, to); observeReveals(); return; }
 
   try{
-    const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl, "Milano"), resolveCoords(toEl)]);
+    const [fromCoords, toCoords] = await Promise.all([resolveCoords(fromEl, MILAN_REFERENCE_POINT), resolveCoords(toEl, MILAN_REFERENCE_POINT)]);
     if(!fromCoords || !toCoords) throw new Error("geocode failed");
     const flatZone = matchFlatZone(from, fromCoords, to, toCoords);
     let priceFn;
