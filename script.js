@@ -935,12 +935,12 @@ function setupCalcAutocomplete(inputId, listId){
     }catch(err){
       if(err.name !== "AbortError") closeList();
     }
-  }, 400);
+  }, 250);
 
   input.addEventListener("input", ()=>{
     delete input.dataset.lat; delete input.dataset.lon;
     const q = input.value.trim();
-    if(q.length < 3){ closeList(); return; }
+    if(!q.length){ closeList(); return; }
     search(q);
   });
   input.addEventListener("blur", ()=> setTimeout(closeList, 300));
