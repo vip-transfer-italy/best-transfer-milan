@@ -744,12 +744,12 @@ async function runSearch(){
    Only the "Milan side" is matched by text; the airport side is still
    confirmed by real coordinates so it can't misfire on an unrelated route.
    ========================================================================= */
+const MILAN_AIRPORT_FIXED_PRICES = { economy:95, comfort:105, business:140, stdvan:115, vipvan:130 };
 const AIRPORT_ZONES = [
-  { key:"malpensa", lat: 45.6296, lon: 8.7236, radiusKm: 5, fixedKm: 45,
-    // client-provided fixed prices, Milan <-> Malpensa, any pickup point in the city
-    fixedPrices: { economy:95, comfort:105, business:140, stdvan:115, vipvan:130 } },
+  // client-provided fixed prices, Milan <-> airport, any pickup point in the city, both directions
+  { key:"malpensa", lat: 45.6296, lon: 8.7236, radiusKm: 5, fixedKm: 45, fixedPrices: MILAN_AIRPORT_FIXED_PRICES },
   { key:"linate", lat: 45.4451, lon: 9.2767, radiusKm: 3, fixedKm: 9, fixedPrices: null },
-  { key:"bergamo", lat: 45.6739, lon: 9.7042, radiusKm: 5, fixedKm: 50, fixedPrices: null }
+  { key:"bergamo", lat: 45.6739, lon: 9.7042, radiusKm: 5, fixedKm: 50, fixedPrices: MILAN_AIRPORT_FIXED_PRICES }
 ];
 
 function haversineKm(a, b){
