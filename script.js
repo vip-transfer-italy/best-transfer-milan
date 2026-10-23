@@ -322,26 +322,28 @@ const ON_REQUEST_LABEL = {uk:"Ціна за запитом",en:"Price on request
    DATA: popular destinations from Milan (base price, economy class, EUR)
    ========================================================================= */
 const POPULAR = [
-  { name:"Milano Malpensa (MXP)", price:88, img:"images/destinations/malpensa.jpg" },
-  { name:"Bergamo Orio al Serio (BGY)", price:87, img:"images/destinations/bergamo.jpg" },
-  { name:"Milano Linate (LIN)", price:40, img:"images/destinations/linate.jpg" },
-  { name:"Lago di Como", price:63, img:"images/destinations/como.jpg" },
-  { name:"Stresa (Lago Maggiore)", price:140, img:"images/destinations/stresa.jpg" },
+  { name:"Milano Malpensa (MXP)", price:79, img:"images/destinations/malpensa.jpg" },
+  { name:"Bergamo Orio al Serio (BGY)", price:79, img:"images/destinations/bergamo.jpg" },
+  { name:"Milano Linate (LIN)", price:49, img:"images/destinations/linate.jpg" },
+  { name:"Lago di Como", price:79, img:"images/destinations/como.jpg" },
+  { name:"Stresa (Lago Maggiore)", price:139, img:"images/destinations/stresa.jpg" },
+  { name:"Lecco", price:99, img:"images/destinations/lecco.jpg" },
   { name:"Lugano", price:122, img:"images/destinations/lugano.jpg" },
   { name:"Desenzano del Garda", price:187, img:"images/destinations/desenzano.jpg" },
-  { name:"Torino", price:209, img:"images/destinations/torino.jpg" },
-  { name:"Genova", price:215, img:"images/destinations/genova.jpg" },
+  { name:"Torino", price:199, img:"images/destinations/torino.jpg" },
+  { name:"Verona", price:189, img:"images/destinations/verona.jpg" },
+  { name:"Genova", price:199, img:"images/destinations/genova.jpg" },
   { name:"Portofino", price:258, img:"images/destinations/portofino.jpg" },
-  { name:"Santa Margherita Ligure", price:251, img:"images/destinations/santa-margherita.jpg" },
-  { name:"Rapallo", price:242, img:"images/destinations/rapallo.jpg" },
+  { name:"Santa Margherita Ligure", price:249, img:"images/destinations/santa-margherita.jpg" },
+  { name:"Rapallo", price:239, img:"images/destinations/rapallo.jpg" },
   { name:"Bologna", price:313, img:"images/destinations/bologna.jpg" },
   { name:"Forte dei Marmi", price:355, img:"images/destinations/forte-dei-marmi.jpg" },
-  { name:"Venezia", price:393, img:"images/destinations/venezia.jpg" },
+  { name:"Venezia", price:399, img:"images/destinations/venezia.jpg" },
   { name:"Pisa", price:409, img:"images/destinations/pisa.jpg" },
   { name:"Livorno", price:425, img:"images/destinations/livorno.jpg" },
-  { name:"Firenze", price:453, img:"images/destinations/firenze.jpg" },
-  { name:"Roma", price:950, img:"images/destinations/roma.jpg" },
-  { name:"Serravalle Designer Outlet", price:147, img:"images/destinations/serravalle.jpg" },
+  { name:"Firenze", price:439, img:"images/destinations/firenze.jpg" },
+  { name:"Roma", price:699, img:"images/destinations/roma.jpg" },
+  { name:"Serravalle Designer Outlet", price:149, img:"images/destinations/serravalle.jpg" },
   { name:"FoxTown Outlet (Svizzera)", price:93, img:"images/destinations/foxtown.jpg" }
 ];
 
@@ -351,23 +353,23 @@ const POPULAR = [
 const CATALOG = {
   italy: [
     { key:"cat_airports", items:[
-      {name:"Milano Malpensa (MXP)",price:88},{name:"Milano Linate (LIN)",price:40},
-      {name:"Bergamo Orio al Serio (BGY)",price:87},{name:"Venezia Marco Polo (VCE)",price:393},
-      {name:"Roma Fiumicino (FCO)",price:950},{name:"Bologna (BLQ)",price:313},
+      {name:"Milano Malpensa (MXP)",price:79},{name:"Milano Linate (LIN)",price:49},
+      {name:"Bergamo Orio al Serio (BGY)",price:79},{name:"Venezia Marco Polo (VCE)",price:399},
+      {name:"Roma Fiumicino (FCO)",price:699},{name:"Bologna (BLQ)",price:313},
       {name:"Treviso (TSF)",price:410},{name:"Bolzano (BZO)",price:330}
     ]},
     { key:"cat_cities", items:[
-      {name:"Torino",price:209},{name:"Genova",price:215},{name:"Bologna",price:313},
-      {name:"Venezia",price:393},{name:"Firenze",price:453},{name:"Verona",price:230},{name:"Parma",price:260}
+      {name:"Torino",price:199},{name:"Genova",price:199},{name:"Bologna",price:313},
+      {name:"Venezia",price:399},{name:"Firenze",price:439},{name:"Verona",price:189},{name:"Parma",price:260}
     ]},
     { key:"cat_sea", items:[
       {name:"Portofino",price:258},{name:"Positano",price:980},{name:"Amalfi",price:1020},
-      {name:"Alassio",price:240},{name:"Viareggio",price:360},{name:"Santa Margherita Ligure",price:251},
-      {name:"Rapallo",price:242},{name:"Forte dei Marmi",price:355}
+      {name:"Alassio",price:240},{name:"Viareggio",price:360},{name:"Santa Margherita Ligure",price:249},
+      {name:"Rapallo",price:239},{name:"Forte dei Marmi",price:355}
     ]},
     { key:"cat_lakes", items:[
-      {name:"Lago di Como",price:63},{name:"Bellagio",price:128},{name:"Desenzano del Garda (Lago di Garda)",price:187},
-      {name:"Stresa (Lago Maggiore)",price:140},{name:"Lago d'Iseo",price:110}
+      {name:"Lago di Como",price:79},{name:"Bellagio",price:128},{name:"Desenzano del Garda (Lago di Garda)",price:187},
+      {name:"Stresa (Lago Maggiore)",price:139},{name:"Lago d'Iseo",price:110},{name:"Lecco",price:99}
     ]},
     { key:"cat_ski", items:[
       {name:"Bormio",price:365},{name:"Livigno",price:392},{name:"Cortina d'Ampezzo",price:718},
@@ -375,7 +377,7 @@ const CATALOG = {
       {name:"Sestriere",price:418},{name:"Monte Rosa",price:252},{name:"Val Gardena",price:601}
     ]},
     { key:"cat_outlets", items:[
-      {name:"Serravalle Designer Outlet",price:147},{name:"Fidenza Village",price:170},
+      {name:"Serravalle Designer Outlet",price:149},{name:"Fidenza Village",price:170},
       {name:"FoxTown Outlet (Svizzera)",price:93},{name:"The Mall Firenze",price:460}
     ]},
     { key:"cat_fairs", items:[
@@ -649,9 +651,16 @@ function renderTerms(){
    driving distance via OSRM, computed through the same per-class engine
    as the rest of the site (see calcClassPrice below).
    ========================================================================= */
+// At 8 passengers the Standard Minivan is at its max capacity, so the
+// client prices that trip at the VIP Minivan rate instead (same badge/car
+// shown, just charged like the bigger class).
+function effectivePriceCarId(car, pax){
+  return (car.id === "stdvan" && pax === 8) ? "vipvan" : car.id;
+}
+
 function computeRealPrice(car, km, pax, bags){
   const fits = car.pax >= pax && car.bags >= bags;
-  return { ...calcClassPrice(car.id, km), fits };
+  return { ...calcClassPrice(effectivePriceCarId(car, pax), km), fits };
 }
 
 async function geocodeText(query){
@@ -786,10 +795,11 @@ function matchFlatZone(fromText, fromCoords, toText, toCoords){
 
 function computeZonePrice(car, zone, pax, bags){
   const fits = car.pax >= pax && car.bags >= bags;
-  if(zone.fixedPrices && zone.fixedPrices[car.id] !== undefined){
-    return { price: zone.fixedPrices[car.id], fits };
+  const priceId = effectivePriceCarId(car, pax);
+  if(zone.fixedPrices && zone.fixedPrices[priceId] !== undefined){
+    return { price: zone.fixedPrices[priceId], fits };
   }
-  return { ...calcClassPrice(car.id, zone.fixedKm), fits };
+  return { ...calcClassPrice(priceId, zone.fixedKm), fits };
 }
 
 /* =========================================================================
@@ -824,7 +834,7 @@ const CALC_VAN_CURVES = {
 const CALC_RATES = {
   economy:  { rate_per_km:1.88, base_fee:10, min_fare:60 },
   comfort:  { rate_per_km:2.10, base_fee:10, min_fare:70 },
-  business: { rate_per_km:4.15, base_fee:45, min_fare:120 },
+  business: { rate_per_km:2.40, base_fee:35, min_fare:85 },
   stdvan:   { curve:"minivan", min_fare:90 },
   vipvan:   { curve:"businessVan", min_fare:110 },
   microbus: { on_request:true }
@@ -1197,9 +1207,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.querySelectorAll(".catalog__panel").forEach(p=>p.classList.toggle("is-active", p.getAttribute("data-panel")===tab));
   });
 
-  /* default date = today at 12:00 */
-  const today = new Date().toISOString().slice(0,10);
-  document.getElementById("dateInput").value = `${today}T12:00`;
+  /* date field starts empty — the customer picks it */
+  document.getElementById("dateInput").min = new Date().toISOString().slice(0,10) + "T00:00";
 
   /* initial render */
   document.getElementById("langToggle").innerHTML = `${currentLang.toUpperCase()} <i>▾</i>`;
