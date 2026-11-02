@@ -328,23 +328,15 @@ const POPULAR = [
   { name:"Lago di Como", price:79, img:"images/destinations/como.jpg" },
   { name:"Stresa (Lago Maggiore)", price:139, img:"images/destinations/stresa.jpg" },
   { name:"Lecco", price:99, img:"images/destinations/lecco.jpg" },
-  { name:"Lugano", price:122, img:"images/destinations/lugano.jpg" },
-  { name:"Desenzano del Garda", price:187, img:"images/destinations/desenzano.jpg" },
   { name:"Torino", price:199, img:"images/destinations/torino.jpg" },
   { name:"Verona", price:189, img:"images/destinations/verona.jpg" },
   { name:"Genova", price:199, img:"images/destinations/genova.jpg" },
-  { name:"Portofino", price:258, img:"images/destinations/portofino.jpg" },
   { name:"Santa Margherita Ligure", price:249, img:"images/destinations/santa-margherita.jpg" },
   { name:"Rapallo", price:239, img:"images/destinations/rapallo.jpg" },
-  { name:"Bologna", price:313, img:"images/destinations/bologna.jpg" },
-  { name:"Forte dei Marmi", price:355, img:"images/destinations/forte-dei-marmi.jpg" },
   { name:"Venezia", price:399, img:"images/destinations/venezia.jpg" },
-  { name:"Pisa", price:409, img:"images/destinations/pisa.jpg" },
-  { name:"Livorno", price:425, img:"images/destinations/livorno.jpg" },
   { name:"Firenze", price:439, img:"images/destinations/firenze.jpg" },
   { name:"Roma", price:699, img:"images/destinations/roma.jpg" },
-  { name:"Serravalle Designer Outlet", price:149, img:"images/destinations/serravalle.jpg" },
-  { name:"FoxTown Outlet (Svizzera)", price:93, img:"images/destinations/foxtown.jpg" }
+  { name:"Serravalle Designer Outlet", price:149, img:"images/destinations/serravalle.jpg" }
 ];
 
 /* =========================================================================
