@@ -190,6 +190,7 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 .counter__value{font-weight:700;color:var(--text);min-width:20px;text-align:center}
 
 .searchcard__submit{width:100%;margin-top:18px;padding:16px}
+.searchcard__contact{width:100%;margin-top:10px}
 
 .autocomplete__list{
   position:absolute;top:calc(100% + 2px);left:0;right:46px;background:var(--paper);border-radius:12px;
@@ -396,7 +397,6 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 @media (max-width:860px){
   .nav{display:none}
   .burger{display:flex}
-  .header__phone{display:none}
   .header__clock{display:none}
   .steps__grid{grid-template-columns:1fr}
 }
@@ -418,6 +418,7 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
   .header__inner{gap:8px}
   .header__tools{gap:6px}
   .header__wa,.header__tg{display:none}
+  .header__phone{font-size:11.5px;white-space:nowrap}
   .logo{gap:7px}
   .logo__mark{width:30px;height:30px;font-size:14px}
   .logo__text{font-size:12.5px}

@@ -31,7 +31,7 @@ const I18N = {
     hero_subtitle: "Комфортні поїздки з аеропортів Мальпенса, Лінате й Бергамо, а також у будь-яке місто Італії та Європи. Преміальні авто, персональний водій.",
     f_from: "Звідки", f_from_ph: "Аеропорт, місто, готель...",
     f_to: "Куди", f_to_ph: "Аеропорт, місто, готель...",
-    f_date: "Дата", f_pax: "Пасажири", f_bags: "Багаж", f_submit: "Дізнатися ціни", search_title: "Пошук маршруту",
+    f_date: "Дата", f_pax: "Пасажири", f_bags: "Багаж", f_submit: "Дізнатися ціни", contact_manager: "Зв'язатися з менеджером", search_title: "Пошук маршруту",
     trust_based: "на основі відгуків клієнтів",
     badge1: "Вибір тисяч мандрівників", badge2: "Підтримка 24/7", badge3: "Безпечно та надійно",
     results_eyebrow: "Ваш маршрут",
@@ -94,7 +94,7 @@ const I18N = {
     hero_subtitle: "Comfortable rides from Malpensa, Linate and Bergamo airports, and to any city in Italy or Europe. Premium cars, personal driver.",
     f_from: "From", f_from_ph: "Airport, city, hotel...",
     f_to: "To", f_to_ph: "Airport, city, hotel...",
-    f_date: "Date", f_pax: "Passengers", f_bags: "Luggage", f_submit: "Get prices", search_title: "Route search",
+    f_date: "Date", f_pax: "Passengers", f_bags: "Luggage", f_submit: "Get prices", contact_manager: "Contact a manager", search_title: "Route search",
     trust_based: "based on customer reviews",
     badge1: "Chosen by thousands of travellers", badge2: "24/7 support", badge3: "Safe and reliable",
     results_eyebrow: "Your route",
@@ -157,7 +157,7 @@ const I18N = {
     hero_subtitle: "Viaggi confortevoli dagli aeroporti di Malpensa, Linate e Bergamo, e verso qualsiasi città in Italia o in Europa. Auto premium, driver personale.",
     f_from: "Da", f_from_ph: "Aeroporto, città, hotel...",
     f_to: "A", f_to_ph: "Aeroporto, città, hotel...",
-    f_date: "Data", f_pax: "Passeggeri", f_bags: "Bagagli", f_submit: "Scopri i prezzi", search_title: "Cerca percorso",
+    f_date: "Data", f_pax: "Passeggeri", f_bags: "Bagagli", f_submit: "Scopri i prezzi", contact_manager: "Contatta un manager", search_title: "Cerca percorso",
     trust_based: "basato sulle recensioni dei clienti",
     badge1: "Scelto da migliaia di viaggiatori", badge2: "Assistenza 24/7", badge3: "Sicuro e affidabile",
     results_eyebrow: "Il tuo percorso",
@@ -220,7 +220,7 @@ const I18N = {
     hero_subtitle: "Комфортные поездки из аэропортов Мальпенса, Линате и Бергамо, а также в любой город Италии и Европы. Премиальные авто, персональный водитель.",
     f_from: "Откуда", f_from_ph: "Аэропорт, город, отель...",
     f_to: "Куда", f_to_ph: "Аэропорт, город, отель...",
-    f_date: "Дата", f_pax: "Пассажиры", f_bags: "Багаж", f_submit: "Узнать цены", search_title: "Поиск маршрута",
+    f_date: "Дата", f_pax: "Пассажиры", f_bags: "Багаж", f_submit: "Узнать цены", contact_manager: "Связаться с менеджером", search_title: "Поиск маршрута",
     trust_based: "на основе отзывов клиентов",
     badge1: "Выбор тысяч путешественников", badge2: "Поддержка 24/7", badge3: "Безопасно и надёжно",
     results_eyebrow: "Ваш маршрут",
@@ -1049,7 +1049,9 @@ function setupStatsCountUp(){
 }
 
 function applyConfigToDom(){
-  document.querySelectorAll("#headerPhone, #footerPhone").forEach(el=>{ el.textContent = CONFIG.phone; el.setAttribute("href", `tel:${CONFIG.phoneHref}`); });
+  document.getElementById("headerPhone").textContent = CONFIG.phone;
+  document.getElementById("footerPhone").textContent = CONFIG.phone;
+  document.getElementById("footerPhone").setAttribute("href", `tel:${CONFIG.phoneHref}`);
   document.getElementById("footerEmail").textContent = CONFIG.email;
   document.getElementById("footerEmail").setAttribute("href", `mailto:${CONFIG.email}`);
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>{ a.setAttribute("href", `https://wa.me/${CONFIG.phoneHref.replace("+","")}`); });
