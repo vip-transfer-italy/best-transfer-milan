@@ -287,7 +287,14 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 .service p{color:var(--text-soft);font-size:14px}
 
 /* ===== fleet ===== */
-.fleet__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.fleet__grid{
+  display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x proximity;
+  padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--gold-light) var(--paper-soft);
+}
+.fleet__grid .car-card{flex:0 0 clamp(240px,27vw,290px);scroll-snap-align:start}
+.fleet__grid::-webkit-scrollbar{height:8px}
+.fleet__grid::-webkit-scrollbar-track{background:var(--paper-soft);border-radius:999px}
+.fleet__grid::-webkit-scrollbar-thumb{background:var(--gold-light);border-radius:999px}
 .car-card{background:var(--paper-soft);border-radius:var(--radius);padding:24px;text-align:center;transition:transform .3s ease,box-shadow .3s ease}
 .car-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .car-card__media{height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;padding:10px;background:radial-gradient(ellipse at 50% 40%,#c99a5c 0%,#6b4a26 60%,#221b14 100%);border-radius:var(--radius-sm);overflow:hidden}
@@ -381,7 +388,6 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 /* ===== responsive ===== */
 @media (max-width:1080px){
   .results__grid,.dest__grid{grid-template-columns:repeat(2,1fr)}
-  .fleet__grid{grid-template-columns:repeat(2,1fr)}
   .services__grid{grid-template-columns:repeat(2,1fr)}
   .quality__grid{grid-template-columns:1fr;gap:34px}
   .quality__media img{height:300px}
@@ -401,7 +407,8 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
   .hero__title{margin-bottom:10px}
   .hero__subtitle{font-size:14.5px;line-height:1.55}
   .section{padding:64px 0}
-  .results__grid,.dest__grid,.fleet__grid,.services__grid{grid-template-columns:1fr}
+  .results__grid,.dest__grid,.services__grid{grid-template-columns:1fr}
+  .fleet__grid .car-card{flex-basis:76vw}
   .searchcard-wrap{margin-top:-100px}
   .searchcard{padding:22px 18px}
   .modal__form{grid-template-columns:1fr}
