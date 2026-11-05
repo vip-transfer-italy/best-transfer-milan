@@ -402,8 +402,8 @@ h1,h2,h3,h4{font-family:var(--ff-head);letter-spacing:-.02em}
 }
 @media (max-width:640px){
   .container{padding:0 18px}
-  .hero{padding:92px 0 80px;min-height:300px}
-  .hero__bg{background-image:url('images/hero-banner-mobile.jpg?v=1');background-position:center 30%}
+  .hero{padding:92px 0 80px;min-height:440px}
+  .hero__bg{background-image:url('images/hero-banner-mobile.jpg?v=1');background-position:center 68%}
   .hero__eyebrow{margin-bottom:10px;font-size:11.5px}
   .hero__title{margin-bottom:10px}
   .hero__subtitle{font-size:14.5px;line-height:1.55}
