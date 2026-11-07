@@ -47,13 +47,13 @@ const I18N = {
     dest_eyebrow: "Напрямки з Мілана", dest_title: "Популярні маршрути", price_from: "від",
     btn_book: "Забронювати",
     catalog_eyebrow: "Повний каталог", catalog_title: "Куди ще ми їдемо",
-    tab_italy: "Італія", tab_france: "Франція", tab_switzerland: "Швейцарія", tab_austria: "Австрія",
+    tab_italy: "Італія", tab_other: "Також їздимо в інші країни",
     catalog_notfound: "Не знайшли свій напрямок?", catalog_contact: "Зв'яжіться з нами",
     cat_airports: "Аеропорти", cat_cities: "Міста", cat_sea: "Морські курорти", cat_lakes: "Озера",
     cat_ski: "Гірськолижні курорти", cat_outlets: "Аутлети", cat_fairs: "Виставкові центри",
-    cat_fr_cities: "Міста", cat_fr_ski: "Гірськолижні курорти",
-    cat_ch_cities: "Міста", cat_ch_ski: "Гірськолижні курорти",
-    cat_at_airports: "Аеропорти", cat_at_resorts: "Курорти",
+    cat_fr_cities: "Франція — міста", cat_fr_ski: "Франція — гірськолижні курорти",
+    cat_ch_cities: "Швейцарія — міста", cat_ch_ski: "Швейцарія — гірськолижні курорти",
+    cat_at_airports: "Австрія — аеропорти", cat_at_resorts: "Австрія — курорти",
     steps_eyebrow: "Як це працює", steps_title: "Подорожувати просто",
     step1_title: "Легке бронювання", step1_text: "Залиште заявку на сайті або у WhatsApp — підтвердимо маршрут і ціну за кілька хвилин.",
     step2_title: "Зустріч з водієм", step2_text: "Водій чекає на вас із табличкою в залі прильоту та допомагає з багажем.",
@@ -110,13 +110,13 @@ const I18N = {
     dest_eyebrow: "Destinations from Milan", dest_title: "Popular routes", price_from: "from",
     btn_book: "Book now",
     catalog_eyebrow: "Full catalogue", catalog_title: "Where else we drive",
-    tab_italy: "Italy", tab_france: "France", tab_switzerland: "Switzerland", tab_austria: "Austria",
+    tab_italy: "Italy", tab_other: "We also travel to other countries",
     catalog_notfound: "Can't find your destination?", catalog_contact: "Contact us",
     cat_airports: "Airports", cat_cities: "Cities", cat_sea: "Sea resorts", cat_lakes: "Lakes",
     cat_ski: "Ski resorts", cat_outlets: "Outlets", cat_fairs: "Exhibition centres",
-    cat_fr_cities: "Cities", cat_fr_ski: "Ski resorts",
-    cat_ch_cities: "Cities", cat_ch_ski: "Ski resorts",
-    cat_at_airports: "Airports", cat_at_resorts: "Resorts",
+    cat_fr_cities: "France — cities", cat_fr_ski: "France — ski resorts",
+    cat_ch_cities: "Switzerland — cities", cat_ch_ski: "Switzerland — ski resorts",
+    cat_at_airports: "Austria — airports", cat_at_resorts: "Austria — resorts",
     steps_eyebrow: "How it works", steps_title: "Travelling made simple",
     step1_title: "Easy booking", step1_text: "Submit a request on the site or via WhatsApp — we confirm the route and price within minutes.",
     step2_title: "Meet your driver", step2_text: "Your driver waits at arrivals with a name sign and helps with your luggage.",
@@ -173,13 +173,13 @@ const I18N = {
     dest_eyebrow: "Destinazioni da Milano", dest_title: "Percorsi popolari", price_from: "da",
     btn_book: "Prenota ora",
     catalog_eyebrow: "Catalogo completo", catalog_title: "Dove andiamo ancora",
-    tab_italy: "Italia", tab_france: "Francia", tab_switzerland: "Svizzera", tab_austria: "Austria",
+    tab_italy: "Italia", tab_other: "Viaggiamo anche in altri paesi",
     catalog_notfound: "Non trovi la tua destinazione?", catalog_contact: "Contattaci",
     cat_airports: "Aeroporti", cat_cities: "Città", cat_sea: "Località balneari", cat_lakes: "Laghi",
     cat_ski: "Località sciistiche", cat_outlets: "Outlet", cat_fairs: "Centri fieristici",
-    cat_fr_cities: "Città", cat_fr_ski: "Località sciistiche",
-    cat_ch_cities: "Città", cat_ch_ski: "Località sciistiche",
-    cat_at_airports: "Aeroporti", cat_at_resorts: "Località",
+    cat_fr_cities: "Francia — città", cat_fr_ski: "Francia — località sciistiche",
+    cat_ch_cities: "Svizzera — città", cat_ch_ski: "Svizzera — località sciistiche",
+    cat_at_airports: "Austria — aeroporti", cat_at_resorts: "Austria — località",
     steps_eyebrow: "Come funziona", steps_title: "Viaggiare in modo semplice",
     step1_title: "Prenotazione facile", step1_text: "Invia una richiesta sul sito o su WhatsApp — confermiamo percorso e prezzo in pochi minuti.",
     step2_title: "Incontro con il driver", step2_text: "Il driver ti aspetta all'arrivo con un cartello con il tuo nome e ti aiuta con i bagagli.",
@@ -236,13 +236,13 @@ const I18N = {
     dest_eyebrow: "Направления из Милана", dest_title: "Популярные маршруты", price_from: "от",
     btn_book: "Забронировать",
     catalog_eyebrow: "Полный каталог", catalog_title: "Куда ещё мы едем",
-    tab_italy: "Италия", tab_france: "Франция", tab_switzerland: "Швейцария", tab_austria: "Австрия",
+    tab_italy: "Италия", tab_other: "Также ездим в другие страны",
     catalog_notfound: "Не нашли своё направление?", catalog_contact: "Свяжитесь с нами",
     cat_airports: "Аэропорты", cat_cities: "Города", cat_sea: "Морские курорты", cat_lakes: "Озёра",
     cat_ski: "Горнолыжные курорты", cat_outlets: "Аутлеты", cat_fairs: "Выставочные центры",
-    cat_fr_cities: "Города", cat_fr_ski: "Горнолыжные курорты",
-    cat_ch_cities: "Города", cat_ch_ski: "Горнолыжные курорты",
-    cat_at_airports: "Аэропорты", cat_at_resorts: "Курорты",
+    cat_fr_cities: "Франция — города", cat_fr_ski: "Франция — горнолыжные курорты",
+    cat_ch_cities: "Швейцария — города", cat_ch_ski: "Швейцария — горнолыжные курорты",
+    cat_at_airports: "Австрия — аэропорты", cat_at_resorts: "Австрия — курорты",
     steps_eyebrow: "Как это работает", steps_title: "Путешествовать просто",
     step1_title: "Лёгкое бронирование", step1_text: "Оставьте заявку на сайте или в WhatsApp — подтвердим маршрут и цену за несколько минут.",
     step2_title: "Встреча с водителем", step2_text: "Водитель ждёт вас с табличкой в зале прилёта и помогает с багажом.",
@@ -543,10 +543,14 @@ function renderDestinations(){
 
 function renderCatalog(){
   const panels = document.getElementById("catalogPanels");
-  const tabs = ["italy","france","switzerland","austria"];
+  const tabs = ["italy","other"];
+  const groupsByTab = {
+    italy: CATALOG.italy,
+    other: [...CATALOG.france, ...CATALOG.switzerland, ...CATALOG.austria]
+  };
   panels.innerHTML = tabs.map(tab=>`
     <div class="catalog__panel ${tab==="italy"?"is-active":""}" data-panel="${tab}">
-      ${CATALOG[tab].map(group=>`
+      ${groupsByTab[tab].map(group=>`
         <div class="catalog__group">
           <h4>${t(group.key)}</h4>
           <div class="chips">
