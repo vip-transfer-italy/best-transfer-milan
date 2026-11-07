@@ -11,6 +11,11 @@ const CONFIG = {
   email:     "info@besttransfermilan.com",   // [ВСТАВИТИ: email, якщо потрібен окремий від VIP Transfer]
 };
 
+// Google Maps Platform — key restricted (HTTP referrer: viptransferitaliy.com/*)
+// to Places API (New) + Routes API only.
+const GOOGLE_API_KEY = "AIzaSyAORQwx8TbkWz-S-Wy-3smlpOkisF8Y25A";
+const GOOGLE_REGIONS = ["IT","FR","CH","AT","DE"];
+
 /* ===== currency (EUR only) ===== */
 function fmtPrice(eur){
   return `${Math.round(eur)} €`;
@@ -639,9 +644,9 @@ function renderTerms(){
 }
 
 /* =========================================================================
-   SEARCH / PRICING — real address geocoding (Nominatim + Photon) + real
-   driving distance via OSRM, computed through the same per-class engine
-   as the rest of the site (see calcClassPrice below).
+   SEARCH / PRICING — real address geocoding + real driving distance via
+   Google Places API (New) + Routes API, computed through the same
+   per-class engine as the rest of the site (see calcClassPrice below).
    ========================================================================= */
 // At 8 passengers the Standard Minivan is at its max capacity, so the
 // client prices that trip at the VIP Minivan rate instead (same badge/car
@@ -655,13 +660,39 @@ function computeRealPrice(car, km, pax, bags){
   return { ...calcClassPrice(effectivePriceCarId(car, pax), km), fits };
 }
 
-async function geocodeText(query){
-  const url = "https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(query) + "&format=json&limit=1&countrycodes=it,fr,ch,at,de&accept-language=" + currentLang;
-  const res = await fetch(url, { headers: { "Accept": "application/json" } });
-  if(!res.ok) return null;
+async function fetchGooglePlaces(query, signal){
+  const res = await fetch("https://places.googleapis.com/v1/places:autocomplete", {
+    method: "POST",
+    signal,
+    headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_API_KEY },
+    body: JSON.stringify({ input: query, includedRegionCodes: GOOGLE_REGIONS, languageCode: currentLang })
+  });
+  if(!res.ok) throw new Error("Places Autocomplete HTTP " + res.status);
   const data = await res.json();
-  if(!data || !data[0]) return null;
-  return { lat: data[0].lat, lon: data[0].lon };
+  return (data.suggestions || [])
+    .filter(s => s.placePrediction)
+    .map(s => ({ name: s.placePrediction.text.text, placeId: s.placePrediction.placeId }));
+}
+
+async function fetchGooglePlaceLocation(placeId){
+  const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
+    headers: { "X-Goog-Api-Key": GOOGLE_API_KEY, "X-Goog-FieldMask": "location" }
+  });
+  if(!res.ok) throw new Error("Place Details HTTP " + res.status);
+  const data = await res.json();
+  if(!data.location) return null;
+  return { lat: data.location.latitude, lon: data.location.longitude };
+}
+
+async function geocodeText(query){
+  try{
+    const suggestions = await fetchGooglePlaces(query);
+    if(!suggestions.length) return null;
+    return await fetchGooglePlaceLocation(suggestions[0].placeId);
+  }catch(err){
+    console.error("[Best Transfer Milan] Geocode error:", err);
+    return null;
+  }
 }
 
 // Default reference point for a bare "Milano" (no specific address picked):
@@ -767,8 +798,8 @@ function haversineKm(a, b){
 
 function mentionsMilan(text){
   const t = (text || "").toLowerCase();
-  // Latin (IT/EN): "Milan", "Milano" — plus Cyrillic city names Nominatim
-  // returns when the UI language is Ukrainian/Russian: "Мілан", "Милан".
+  // Latin (IT/EN): "Milan", "Milano" — plus Cyrillic city names Google
+  // Places returns when the UI language is Ukrainian/Russian: "Мілан", "Милан".
   return /\bmilan[oa]?\b/.test(t) || t.includes("мілан") || t.includes("милан");
 }
 
@@ -873,12 +904,23 @@ function calcClassPrice(carId, km){
 }
 
 async function fetchDrivingDistanceKm(lat1, lon1, lat2, lon2){
-  const url = "https://router.project-osrm.org/route/v1/driving/" + lon1 + "," + lat1 + ";" + lon2 + "," + lat2 + "?overview=false";
-  const res = await fetch(url);
-  if(!res.ok) throw new Error("OSRM HTTP " + res.status);
+  const res = await fetch("https://routes.googleapis.com/directions/v2:computeRoutes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": GOOGLE_API_KEY,
+      "X-Goog-FieldMask": "routes.distanceMeters"
+    },
+    body: JSON.stringify({
+      origin: { location: { latLng: { latitude: parseFloat(lat1), longitude: parseFloat(lon1) } } },
+      destination: { location: { latLng: { latitude: parseFloat(lat2), longitude: parseFloat(lon2) } } },
+      travelMode: "DRIVE"
+    })
+  });
+  if(!res.ok) throw new Error("Routes API HTTP " + res.status);
   const data = await res.json();
-  if(!data.routes || !data.routes[0]) throw new Error("OSRM: no route found");
-  return data.routes[0].distance / 1000;
+  if(!data.routes || !data.routes[0]) throw new Error("Routes API: no route found");
+  return data.routes[0].distanceMeters / 1000;
 }
 
 function debounce(fn, delay){
@@ -893,58 +935,13 @@ function setupCalcAutocomplete(inputId, listId){
 
   const closeList = ()=>{ list.classList.remove("is-open"); list.innerHTML = ""; };
 
-  async function fetchNominatim(query, signal){
-    const url = "https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(query) + "&format=json&limit=5&addressdetails=0&countrycodes=it,fr,ch,at,de&accept-language=" + currentLang;
-    const res = await fetch(url, { signal, headers: { "Accept": "application/json" } });
-    if(!res.ok) throw new Error("Nominatim HTTP " + res.status);
-    const data = await res.json();
-    return (Array.isArray(data) ? data : []).filter(p=>p.display_name).map(p=>({ name: p.display_name, lat: p.lat, lon: p.lon }));
-  }
-
-  // Low-value OSM categories (sports fields, racetracks, raw landuse polygons,
-  // footpaths...) that Photon's fuzzy text match surfaces for short queries
-  // like airport codes, but which are never a sensible pickup/drop-off point.
-  const PHOTON_JUNK_KEYS = new Set(["landuse", "natural"]);
-  const PHOTON_JUNK_VALUES = new Set([
-    "track","raceway","bridleway","path","cycleway","steps","footway",
-    "pitch","stadium","golf_course","sports_centre","nature_reserve",
-    "forest","farmland","farm","allotments","cemetery","quarry","landfill",
-    "military","wood","scrub","grass","recreation_ground","meadow"
-  ]);
-  function isRelevantPhotonFeature(p){
-    if(PHOTON_JUNK_KEYS.has(p.osm_key)) return false;
-    if(PHOTON_JUNK_VALUES.has(p.osm_value)) return false;
-    return true;
-  }
-
-  async function fetchPhoton(query, signal){
-    // bbox ~ Italy (incl. Sicily) + France + Switzerland + Austria + Germany
-    const url = "https://photon.komoot.io/api/?q=" + encodeURIComponent(query) + "&limit=5&lang=en&bbox=5,36,17,55";
-    const res = await fetch(url, { signal });
-    if(!res.ok) throw new Error("Photon HTTP " + res.status);
-    const data = await res.json();
-    return (data.features || []).filter(f=> isRelevantPhotonFeature(f.properties || {})).map(f=>{
-      const p = f.properties || {};
-      const coords = (f.geometry && f.geometry.coordinates) || [];
-      const name = [p.name, p.street, p.housenumber, p.city, p.state, p.country].filter(Boolean).join(", ");
-      return name ? { name, lat: coords[1], lon: coords[0] } : null;
-    }).filter(Boolean);
-  }
-
   const search = debounce(async (query)=>{
     if(abortCtrl) abortCtrl.abort();
     abortCtrl = new AbortController();
     const signal = abortCtrl.signal;
     try{
-      const results = await Promise.allSettled([fetchNominatim(query, signal), fetchPhoton(query, signal)]);
+      const items = await fetchGooglePlaces(query, signal);
       if(signal.aborted) return;
-      const nomi = results[0].status === "fulfilled" ? results[0].value : [];
-      const photon = results[1].status === "fulfilled" ? results[1].value : [];
-      const seen = new Set(); const items = [];
-      [...nomi, ...photon].forEach(place=>{
-        const key = place.name.toLowerCase().slice(0,60);
-        if(!seen.has(key) && items.length < 6){ seen.add(key); items.push(place); }
-      });
       list.innerHTML = "";
       if(!items.length){ closeList(); return; }
       items.forEach(place=>{
@@ -954,12 +951,16 @@ function setupCalcAutocomplete(inputId, listId){
         icon.className = "ac-icon"; icon.textContent = "📍";
         li.appendChild(icon);
         li.appendChild(document.createTextNode(place.name));
-        const pick = (e)=>{
+        const pick = async (e)=>{
           e.preventDefault();
           input.value = place.name;
-          if(place.lat && place.lon){ input.dataset.lat = place.lat; input.dataset.lon = place.lon; }
-          else { delete input.dataset.lat; delete input.dataset.lon; }
           closeList();
+          try{
+            const loc = await fetchGooglePlaceLocation(place.placeId);
+            if(loc){ input.dataset.lat = loc.lat; input.dataset.lon = loc.lon; }
+          }catch(err){
+            console.error("[Best Transfer Milan] Place details error:", err);
+          }
         };
         li.addEventListener("pointerdown", pick);
         li.addEventListener("touchstart", pick, { passive:false });
@@ -1135,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     else { delete toEl.dataset.lat; delete toEl.dataset.lon; }
   });
 
-  /* real address autocomplete (Nominatim + Photon) */
+  /* real address autocomplete (Google Places API) */
   setupCalcAutocomplete("fromInput","fromList");
   setupCalcAutocomplete("toInput","toList");
 
