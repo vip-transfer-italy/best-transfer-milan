@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://besttransfermilan.com/sitemap.xml
