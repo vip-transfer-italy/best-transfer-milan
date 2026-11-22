@@ -327,21 +327,21 @@ const ON_REQUEST_LABEL = {uk:"Ціна за запитом",en:"Price on request
    DATA: popular destinations from Milan (base price, economy class, EUR)
    ========================================================================= */
 const POPULAR = [
-  { name:"Milano Malpensa (MXP)", price:95, img:"images/destinations/malpensa.jpg" },
-  { name:"Bergamo Orio al Serio (BGY)", price:95, img:"images/destinations/bergamo.jpg" },
-  { name:"Milano Linate (LIN)", price:59, img:"images/destinations/linate.jpg" },
-  { name:"Lago di Como", price:103, img:"images/destinations/como.jpg" },
-  { name:"Stresa (Lago Maggiore)", price:158, img:"images/destinations/stresa.jpg" },
-  { name:"Lecco", price:111, img:"images/destinations/lecco.jpg" },
-  { name:"Torino", price:246, img:"images/destinations/torino.jpg" },
-  { name:"Verona", price:274, img:"images/destinations/verona.jpg" },
-  { name:"Genova", price:253, img:"images/destinations/genova.jpg" },
-  { name:"Santa Margherita Ligure", price:294, img:"images/destinations/santa-margherita.jpg" },
-  { name:"Rapallo", price:287, img:"images/destinations/rapallo.jpg" },
-  { name:"Venezia", price:424, img:"images/destinations/venezia.jpg" },
-  { name:"Firenze", price:456, img:"images/destinations/firenze.jpg" },
-  { name:"Roma", price:789, img:"images/destinations/roma.jpg" },
-  { name:"Serravalle Designer Outlet", price:182, img:"images/destinations/serravalle.jpg" }
+  { name:"Milano Malpensa (MXP)", price:79, img:"images/destinations/malpensa.jpg" },
+  { name:"Bergamo Orio al Serio (BGY)", price:79, img:"images/destinations/bergamo.jpg" },
+  { name:"Milano Linate (LIN)", price:49, img:"images/destinations/linate.jpg" },
+  { name:"Lago di Como", price:79, img:"images/destinations/como.jpg" },
+  { name:"Stresa (Lago Maggiore)", price:139, img:"images/destinations/stresa.jpg" },
+  { name:"Lecco", price:99, img:"images/destinations/lecco.jpg" },
+  { name:"Torino", price:199, img:"images/destinations/torino.jpg" },
+  { name:"Verona", price:189, img:"images/destinations/verona.jpg" },
+  { name:"Genova", price:199, img:"images/destinations/genova.jpg" },
+  { name:"Santa Margherita Ligure", price:249, img:"images/destinations/santa-margherita.jpg" },
+  { name:"Rapallo", price:239, img:"images/destinations/rapallo.jpg" },
+  { name:"Venezia", price:399, img:"images/destinations/venezia.jpg" },
+  { name:"Firenze", price:439, img:"images/destinations/firenze.jpg" },
+  { name:"Roma", price:699, img:"images/destinations/roma.jpg" },
+  { name:"Serravalle Designer Outlet", price:149, img:"images/destinations/serravalle.jpg" }
 ];
 
 /* =========================================================================
@@ -350,62 +350,62 @@ const POPULAR = [
 const CATALOG = {
   italy: [
     { key:"cat_airports", items:[
-      {name:"Milano Malpensa (MXP)",price:95},{name:"Milano Linate (LIN)",price:59},
-      {name:"Bergamo Orio al Serio (BGY)",price:95},{name:"Venezia Marco Polo (VCE)",price:418},
-      {name:"Roma Fiumicino (FCO)",price:820},{name:"Bologna (BLQ)",price:340},
-      {name:"Treviso (TSF)",price:444},{name:"Bolzano (BZO)",price:444}
+      {name:"Milano Malpensa (MXP)",price:79},{name:"Milano Linate (LIN)",price:49},
+      {name:"Bergamo Orio al Serio (BGY)",price:79},{name:"Venezia Marco Polo (VCE)",price:399},
+      {name:"Roma Fiumicino (FCO)",price:699},{name:"Bologna (BLQ)",price:313},
+      {name:"Treviso (TSF)",price:410},{name:"Bolzano (BZO)",price:330}
     ]},
     { key:"cat_cities", items:[
-      {name:"Torino",price:246},{name:"Genova",price:253},{name:"Bologna",price:346},
-      {name:"Venezia",price:424},{name:"Firenze",price:456},{name:"Verona",price:274},{name:"Parma",price:222}
+      {name:"Torino",price:199},{name:"Genova",price:199},{name:"Bologna",price:313},
+      {name:"Venezia",price:399},{name:"Firenze",price:439},{name:"Verona",price:189},{name:"Parma",price:260}
     ]},
     { key:"cat_sea", items:[
-      {name:"Portofino",price:300},{name:"Positano",price:1110},{name:"Amalfi",price:1122},
-      {name:"Alassio",price:346},{name:"Viareggio",price:385},{name:"Santa Margherita Ligure",price:294},
-      {name:"Rapallo",price:287},{name:"Forte dei Marmi",price:372}
+      {name:"Portofino",price:258},{name:"Positano",price:980},{name:"Amalfi",price:1020},
+      {name:"Alassio",price:240},{name:"Viareggio",price:360},{name:"Santa Margherita Ligure",price:249},
+      {name:"Rapallo",price:239},{name:"Forte dei Marmi",price:355}
     ]},
     { key:"cat_lakes", items:[
-      {name:"Lago di Como",price:103},{name:"Bellagio",price:143},{name:"Desenzano del Garda (Lago di Garda)",price:222},
-      {name:"Stresa (Lago Maggiore)",price:158},{name:"Lago d'Iseo",price:158},{name:"Lecco",price:111}
+      {name:"Lago di Como",price:79},{name:"Bellagio",price:128},{name:"Desenzano del Garda (Lago di Garda)",price:187},
+      {name:"Stresa (Lago Maggiore)",price:139},{name:"Lago d'Iseo",price:110},{name:"Lecco",price:99}
     ]},
     { key:"cat_ski", items:[
-      {name:"Bormio",price:327},{name:"Livigno",price:365},{name:"Cortina d'Ampezzo",price:602},
-      {name:"Cervinia",price:307},{name:"Courmayeur",price:340},{name:"Madonna di Campiglio",price:365},
-      {name:"Sestriere",price:333},{name:"Monte Rosa",price:281},{name:"Val Gardena",price:493}
+      {name:"Bormio",price:365},{name:"Livigno",price:392},{name:"Cortina d'Ampezzo",price:718},
+      {name:"Cervinia",price:356},{name:"Courmayeur",price:386},{name:"Madonna di Campiglio",price:541},
+      {name:"Sestriere",price:418},{name:"Monte Rosa",price:252},{name:"Val Gardena",price:601}
     ]},
     { key:"cat_outlets", items:[
-      {name:"Serravalle Designer Outlet",price:182},{name:"Fidenza Village",price:198},
-      {name:"FoxTown Outlet (Svizzera)",price:119},{name:"The Mall Firenze",price:481}
+      {name:"Serravalle Designer Outlet",price:149},{name:"Fidenza Village",price:170},
+      {name:"FoxTown Outlet (Svizzera)",price:93},{name:"The Mall Firenze",price:460}
     ]},
     { key:"cat_fairs", items:[
-      {name:"Rho Fiera Milano",price:59},{name:"Fiera Milano City",price:59},{name:"Bologna Fiere",price:346}
+      {name:"Rho Fiera Milano",price:45},{name:"Fiera Milano City",price:35},{name:"Bologna Fiere",price:313}
     ]}
   ],
   france: [
     { key:"cat_fr_cities", items:[
-      {name:"Nice",price:475},{name:"Cannes",price:511},{name:"Annecy",price:481},{name:"Paris",price:1122}
+      {name:"Nice",price:480},{name:"Cannes",price:500},{name:"Annecy",price:320},{name:"Paris",price:790}
     ]},
     { key:"cat_fr_ski", items:[
-      {name:"Courchevel",price:493},{name:"Chamonix",price:365},{name:"Val d'Isère",price:456},{name:"Tignes",price:456},
-      {name:"La Plagne",price:481},{name:"La Tania",price:493},{name:"Les Arcs",price:456},{name:"Les Houches",price:358},
-      {name:"Megève",price:391},{name:"Méribel",price:499},{name:"Bourg-Saint-Maurice",price:431},{name:"Le Grand Bornand",price:424}
+      {name:"Courchevel",price:551},{name:"Chamonix",price:483},{name:"Val d'Isère",price:494},{name:"Tignes",price:516},
+      {name:"La Plagne",price:525},{name:"La Tania",price:543},{name:"Les Arcs",price:530},{name:"Les Houches",price:432},
+      {name:"Megève",price:482},{name:"Méribel",price:541},{name:"Bourg-Saint-Maurice",price:475},{name:"Le Grand Bornand",price:543}
     ]}
   ],
   switzerland: [
     { key:"cat_ch_cities", items:[
-      {name:"Lugano",price:150},{name:"St. Moritz",price:294},{name:"Ascona",price:206},{name:"Champéry",price:418}
+      {name:"Lugano",price:122},{name:"St. Moritz",price:452},{name:"Ascona",price:170},{name:"Champéry",price:527}
     ]},
     { key:"cat_ch_ski", items:[
-      {name:"Zermatt",price:365},{name:"Verbier",price:398},{name:"Davos",price:365},{name:"Crans-Montana",price:352}
+      {name:"Zermatt",price:416},{name:"Verbier",price:310},{name:"Davos",price:290},{name:"Crans-Montana",price:310}
     ]}
   ],
   austria: [
     { key:"cat_at_airports", items:[
-      {name:"Innsbruck",price:577},{name:"Vienna",price:1146},{name:"Salzburg",price:771}
+      {name:"Innsbruck",price:300},{name:"Vienna",price:820},{name:"Salzburg",price:480}
     ]},
     { key:"cat_at_resorts", items:[
-      {name:"Sölden",price:493},{name:"Saalbach",price:771},{name:"Ischgl",price:456},{name:"St. Anton",price:493},
-      {name:"Alpbach",price:650},{name:"Kitzbühel",price:723},{name:"Obergurgl",price:505},{name:"Mayrhofen",price:662},{name:"Söll",price:699}
+      {name:"Sölden",price:659},{name:"Saalbach",price:933},{name:"Ischgl",price:649},{name:"St. Anton",price:598},
+      {name:"Alpbach",price:777},{name:"Kitzbühel",price:847},{name:"Obergurgl",price:640},{name:"Mayrhofen",price:805},{name:"Söll",price:814}
     ]}
   ]
 };
