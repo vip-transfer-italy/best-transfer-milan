@@ -77,7 +77,7 @@ const I18N = {
     clock_label: "Мілан",
     calc_distance: "Відстань",
     calc_flatrate: "Фіксована ціна: Мілан ↔ аеропорт (діє для будь-якої адреси в місті)",
-    reviews_eyebrow: "Відгуки", review_cta: "Залишити відгук у Google", reviews_title: "Що кажуть наші клієнти",
+    reviews_eyebrow: "Відгуки", rv_open: "Написати відгук", rv_title: "Ваш відгук", rv_note: "Розкажіть, як пройшла поїздка. Ми опублікуємо ваш відгук на сайті.", rv_route: "Маршрут (необов'язково)", rv_route_ph: "Мальпенса → Мілан", rv_text: "Ваш відгук", rv_text_ph: "Як пройшла поїздка?", rv_error: "Будь ласка, вкажіть ім'я та напишіть кілька слів.", rv_send: "Надіслати відгук", rv_hint: "Відгук відкриється у WhatsApp уже готовим — просто натисніть «Надіслати».", rv_success: "Дякуємо за відгук! Будемо вдячні, якщо ви також залишите його в Google:", rv_msg: "Новий відгук", rv_rating: "Оцінка", review_cta: "Залишити відгук у Google", reviews_title: "Що кажуть наші клієнти",
     faq_eyebrow: "FAQ", faq_title: "Корисно знати",
     modal_title: "Забронювати трансфер", m_name: "Ваше ім'я", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Коментар (необов'язково)", m_comment_ph: "Номер рейсу, дитяче крісло тощо",
@@ -140,7 +140,7 @@ const I18N = {
     clock_label: "Milan",
     calc_distance: "Distance",
     calc_flatrate: "Flat rate: Milan ↔ airport (applies to any address in the city)",
-    reviews_eyebrow: "Reviews", review_cta: "Leave a review on Google", reviews_title: "What our clients say",
+    reviews_eyebrow: "Reviews", rv_open: "Write a review", rv_title: "Your review", rv_note: "Tell us how your ride went. We will publish your review on our website.", rv_route: "Route (optional)", rv_route_ph: "Malpensa → Milan", rv_text: "Your review", rv_text_ph: "How was your ride?", rv_error: "Please add your name and a few words about the ride.", rv_send: "Send review", rv_hint: "Your review opens in WhatsApp ready to go — just tap “Send”.", rv_success: "Thank you for your review! We would be grateful if you also left it on Google:", rv_msg: "New review", rv_rating: "Rating", review_cta: "Leave a review on Google", reviews_title: "What our clients say",
     faq_eyebrow: "FAQ", faq_title: "Good to know",
     modal_title: "Book a transfer", m_name: "Your name", m_phone: "Phone / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Comment (optional)", m_comment_ph: "Flight number, child seat, etc.",
@@ -203,7 +203,7 @@ const I18N = {
     clock_label: "Milano",
     calc_distance: "Distanza",
     calc_flatrate: "Tariffa fissa: Milano ↔ aeroporto (valida per qualsiasi indirizzo in città)",
-    reviews_eyebrow: "Recensioni", review_cta: "Lascia una recensione su Google", reviews_title: "Cosa dicono i nostri clienti",
+    reviews_eyebrow: "Recensioni", rv_open: "Scrivi una recensione", rv_title: "La tua recensione", rv_note: "Raccontaci com'è andato il viaggio. Pubblicheremo la tua recensione sul sito.", rv_route: "Percorso (facoltativo)", rv_route_ph: "Malpensa → Milano", rv_text: "La tua recensione", rv_text_ph: "Com'è andato il viaggio?", rv_error: "Inserisci il nome e qualche parola sul viaggio.", rv_send: "Invia recensione", rv_hint: "La recensione si apre su WhatsApp già pronta — basta toccare «Invia».", rv_success: "Grazie per la recensione! Ti saremmo grati se la lasciassi anche su Google:", rv_msg: "Nuova recensione", rv_rating: "Valutazione", review_cta: "Lascia una recensione su Google", reviews_title: "Cosa dicono i nostri clienti",
     faq_eyebrow: "FAQ", faq_title: "Utile da sapere",
     modal_title: "Prenota un transfer", m_name: "Il tuo nome", m_phone: "Telefono / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Commento (opzionale)", m_comment_ph: "Numero di volo, seggiolino per bambini, ecc.",
@@ -266,7 +266,7 @@ const I18N = {
     clock_label: "Милан",
     calc_distance: "Расстояние",
     calc_flatrate: "Фиксированная цена: Милан ↔ аэропорт (для любого адреса в городе)",
-    reviews_eyebrow: "Отзывы", review_cta: "Оставить отзыв в Google", reviews_title: "Что говорят наши клиенты",
+    reviews_eyebrow: "Отзывы", rv_open: "Написать отзыв", rv_title: "Ваш отзыв", rv_note: "Расскажите, как прошла поездка. Мы опубликуем ваш отзыв на сайте.", rv_route: "Маршрут (необязательно)", rv_route_ph: "Мальпенса → Милан", rv_text: "Ваш отзыв", rv_text_ph: "Как прошла поездка?", rv_error: "Пожалуйста, укажите имя и напишите несколько слов.", rv_send: "Отправить отзыв", rv_hint: "Отзыв откроется в WhatsApp уже готовым — просто нажмите «Отправить».", rv_success: "Спасибо за отзыв! Будем благодарны, если вы также оставите его в Google:", rv_msg: "Новый отзыв", rv_rating: "Оценка", review_cta: "Оставить отзыв в Google", reviews_title: "Что говорят наши клиенты",
     faq_eyebrow: "FAQ", faq_title: "Полезно знать",
     modal_title: "Забронировать трансфер", m_name: "Ваше имя", m_phone: "Телефон / WhatsApp", m_phone_ph: "+39 ...",
     m_comment: "Комментарий (необязательно)", m_comment_ph: "Номер рейса, детское кресло и т.д.",
@@ -1257,6 +1257,45 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.getElementById("modalForm").style.display = "none";
     document.getElementById("modalSuccess").hidden = false;
     /* href just updated on this same click — browser opens it in a new tab as normal link navigation */
+  });
+
+  /* review modal: collected on the site, delivered to the business via WhatsApp */
+  let rvRating = 5;
+  const rvModal = document.getElementById("reviewModal");
+  const openReview = ()=>{
+    document.getElementById("reviewForm").reset();
+    document.getElementById("reviewForm").style.display = "grid";
+    document.getElementById("rvSuccess").hidden = true;
+    document.getElementById("rvError").hidden = true;
+    document.getElementById("reviewForm").querySelectorAll(".field, #rvSend, .rv-hint").forEach(el=>el.hidden = false);
+    rvRating = 5; paintStars();
+    rvModal.hidden = false; document.body.style.overflow = "hidden";
+  };
+  const closeReview = ()=>{ rvModal.hidden = true; document.body.style.overflow = ""; };
+  const paintStars = ()=> document.querySelectorAll("#rvStars button").forEach(b=>b.classList.toggle("is-on", +b.dataset.v <= rvRating));
+  document.getElementById("openReview").addEventListener("click", openReview);
+  document.getElementById("reviewClose").addEventListener("click", closeReview);
+  document.getElementById("reviewBackdrop").addEventListener("click", closeReview);
+  document.querySelectorAll("#rvStars button").forEach(b=>b.addEventListener("click", ()=>{ rvRating = +b.dataset.v; paintStars(); }));
+  document.getElementById("reviewForm").addEventListener("submit", (e)=> e.preventDefault());
+  document.getElementById("rvSend").addEventListener("click", (e)=>{
+    const name = document.getElementById("rvName").value.trim();
+    const text = document.getElementById("rvText").value.trim();
+    if(!name || text.length < 3){ e.preventDefault(); document.getElementById("rvError").hidden = false; return; }
+    document.getElementById("rvError").hidden = true;
+    const route = document.getElementById("rvRoute").value.trim();
+    const tr = I18N[currentLang];
+    const msg = [
+      `Best Transfer Milan — ${tr.rv_msg}`,
+      `${tr.rv_rating}: ${"★".repeat(rvRating)}${"☆".repeat(5-rvRating)} (${rvRating}/5)`,
+      `${tr.m_name}: ${name}`,
+      route ? `${tr.rv_route.replace(/\s*\(.*\)$/,"")}: ${route}` : null,
+      "",
+      text
+    ].filter(v=>v!==null).join("\n");
+    document.getElementById("rvSend").setAttribute("href", `https://wa.me/${CONFIG.phoneHref.replace("+","")}?text=${encodeURIComponent(msg)}`);
+    document.getElementById("reviewForm").querySelectorAll(".field, #rvSend, .rv-hint").forEach(el=>el.hidden = true);
+    document.getElementById("rvSuccess").hidden = false;
   });
 
   /* catalog tabs */
