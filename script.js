@@ -688,11 +688,49 @@ async function fetchGooglePlaceLocation(placeId){
   return { lat: data.location.latitude, lon: data.location.longitude };
 }
 
+/* ---- Fallback when Google Maps Platform is unavailable (key restricted,
+   billing off, quota exceeded): free OpenStreetMap services, the same ones
+   the site used before the switch to Google. Once Google fails we stop
+   calling it for the rest of the visit so suggestions stay fast. ---- */
+let googleMapsDown = false;
+
+async function fetchOsmPlaces(query, signal){
+  const lang = ["en","it","de","fr"].includes(currentLang) ? currentLang : "en";
+  const url = "https://photon.komoot.io/api/?limit=6&lat=45.4642&lon=9.19&lang=" + lang + "&q=" + encodeURIComponent(query);
+  const res = await fetch(url, { signal });
+  if(!res.ok) throw new Error("Photon HTTP " + res.status);
+  const data = await res.json();
+  const seen = new Set();
+  return (data.features || []).map(f=>{
+    const p = f.properties || {}, c = (f.geometry && f.geometry.coordinates) || [];
+    const name = [p.name, [p.street, p.housenumber].filter(Boolean).join(" "), p.city, p.country]
+      .filter((v,i,a)=>v && a.indexOf(v)===i).join(", ");
+    return { name, lat: c[1], lon: c[0] };
+  }).filter(x=>{
+    if(!x.name || x.lat === undefined || seen.has(x.name)) return false;
+    seen.add(x.name); return true;
+  });
+}
+
+async function fetchPlaces(query, signal){
+  if(!googleMapsDown){
+    try{ return await fetchGooglePlaces(query, signal); }
+    catch(err){
+      if(err.name === "AbortError") throw err;
+      console.warn("[Best Transfer Milan] Google Places unavailable, using OpenStreetMap:", err);
+      googleMapsDown = true;
+    }
+  }
+  return fetchOsmPlaces(query, signal);
+}
+
 async function geocodeText(query){
   try{
-    const suggestions = await fetchGooglePlaces(query);
+    const suggestions = await fetchPlaces(query);
     if(!suggestions.length) return null;
-    return await fetchGooglePlaceLocation(suggestions[0].placeId);
+    const first = suggestions[0];
+    if(first.lat !== undefined) return { lat: first.lat, lon: first.lon };
+    return await fetchGooglePlaceLocation(first.placeId);
   }catch(err){
     console.error("[Best Transfer Milan] Geocode error:", err);
     return null;
@@ -707,7 +745,14 @@ async function resolveCoords(input, fallbackCoords){
   if(input.dataset.lat && input.dataset.lon) return { lat: input.dataset.lat, lon: input.dataset.lon };
   const value = input.value.trim();
   if(!value || /^milan[oa]?$/i.test(value)) return fallbackCoords || null;
-  const geo = await geocodeText(value);
+  const v = value.toLowerCase();
+  const airport = /malpensa|\bmxp\b/.test(v) ? "malpensa" : /linate|\blin\b/.test(v) ? "linate" : /orio al serio|\bbgy\b/.test(v) ? "bergamo" : null;
+  if(airport){
+    const z = AIRPORT_ZONES.find(z=>z.key===airport);
+    input.dataset.lat = z.lat; input.dataset.lon = z.lon;
+    return { lat: z.lat, lon: z.lon };
+  }
+  const geo = await geocodeText(value.replace(/\s*\([^)]*\)\s*/g, " ").trim());
   if(geo){ input.dataset.lat = geo.lat; input.dataset.lon = geo.lon; }
   return geo;
 }
@@ -908,6 +953,22 @@ function calcClassPrice(carId, km){
 }
 
 async function fetchDrivingDistanceKm(lat1, lon1, lat2, lon2){
+  if(!googleMapsDown){
+    try{ return await fetchGoogleDrivingDistanceKm(lat1, lon1, lat2, lon2); }
+    catch(err){
+      console.warn("[Best Transfer Milan] Google Routes unavailable, using OSRM:", err);
+      googleMapsDown = true;
+    }
+  }
+  const res = await fetch("https://router.project-osrm.org/route/v1/driving/"
+    + lon1 + "," + lat1 + ";" + lon2 + "," + lat2 + "?overview=false");
+  if(!res.ok) throw new Error("OSRM HTTP " + res.status);
+  const data = await res.json();
+  if(!data.routes || !data.routes[0]) throw new Error("OSRM: no route found");
+  return data.routes[0].distance / 1000;
+}
+
+async function fetchGoogleDrivingDistanceKm(lat1, lon1, lat2, lon2){
   const res = await fetch("https://routes.googleapis.com/directions/v2:computeRoutes", {
     method: "POST",
     headers: {
@@ -944,7 +1005,7 @@ function setupCalcAutocomplete(inputId, listId){
     abortCtrl = new AbortController();
     const signal = abortCtrl.signal;
     try{
-      const items = await fetchGooglePlaces(query, signal);
+      const items = await fetchPlaces(query, signal);
       if(signal.aborted) return;
       list.innerHTML = "";
       if(!items.length){ closeList(); return; }
@@ -959,6 +1020,7 @@ function setupCalcAutocomplete(inputId, listId){
           e.preventDefault();
           input.value = place.name;
           closeList();
+          if(place.lat !== undefined){ input.dataset.lat = place.lat; input.dataset.lon = place.lon; return; }
           try{
             const loc = await fetchGooglePlaceLocation(place.placeId);
             if(loc){ input.dataset.lat = loc.lat; input.dataset.lon = loc.lon; }
